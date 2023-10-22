@@ -1,9 +1,14 @@
+import Home from "../views/home";
 import Menu from "../views/menu";
 
 const routers = [
   {
     path: "/",
-    element: <Menu />
+    element: <Home />,
+  },
+  {
+    path: "/menu",
+    element: <Menu />,
   },
 ];
 
