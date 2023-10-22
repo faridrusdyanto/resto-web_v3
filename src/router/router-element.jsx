@@ -1,7 +1,5 @@
-import React from "react";
 import routers from "./router-data";
 import { Route, Routes } from "react-router-dom";
-import Menu from "../views/menu";
 
 export default function Routerlement() {
   return routers.map((x, i) => {

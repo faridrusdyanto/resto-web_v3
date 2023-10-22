@@ -1,14 +1,8 @@
-import { useState } from 'react'
-import './App.css'
+import "./App.css";
+import Routerlement from "./router/router-element";
 
 function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-      <h5>Tolong dibantu...</h5>
-    </>
-  )
+  return <Routerlement />;
 }
 
-export default App
+export default App;

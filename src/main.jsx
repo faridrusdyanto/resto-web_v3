@@ -1,20 +1,19 @@
-import React from "react";
-import ReactDOM, { createRoot } from "react-dom/client";
-import App from "./App.jsx";
+/* eslint-disable react/no-deprecated */
 import "./index.css";
-import { RouterProvider } from "react-router-dom";
-import router from "./router/index.jsx";
-import '@fontsource/roboto/300.css';
-import '@fontsource/roboto/400.css';
-import '@fontsource/roboto/500.css';
-import '@fontsource/roboto/700.css';
+import "./App.css";
+import "@fontsource/roboto/300.css";
+import "@fontsource/roboto/400.css";
+import "@fontsource/roboto/500.css";
+import "@fontsource/roboto/700.css";
 
-// import 'bootstrap/dist/css/bootstrap.min.css';
-// import { ThemeProvider, createMuiTheme, makeStyles } from '@material-ui/core/styles';
-import './App.css';
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./App";
+import { BrowserRouter } from "react-router-dom";
 
-createRoot(document.getElementById("root")).render(
-  // <ThemeProvider theme={theme}>
-  <RouterProvider router={router} />
-// </ThemeProvider>
+ReactDOM.render(
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>,
+  document.getElementById("root")
 );
