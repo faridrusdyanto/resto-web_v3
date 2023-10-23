@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types */
-import React from "react";
 import { Button, Typography } from "@mui/material";
 import {
   LibraryAddCheck,
@@ -8,8 +7,9 @@ import {
   LocalMall,
 } from "@mui/icons-material";
 import { makeStyles } from "@mui/styles";
+import homebg from "../../assets/home_bg.jpg";
 
-const useStyles = makeStyles(() => ({
+const styles = {
   header: {
     backgroundColor: "#400CCC",
     paddingRight: "79px",
@@ -22,7 +22,8 @@ const useStyles = makeStyles(() => ({
     display: "flex",
     paddingRight: "79px",
     paddingLeft: "118px",
-    background: "url('home_bg.jpg')",
+    backgroundImage: "url(" + homebg + ")",
+
     backgroundRepeat: "no-repeat",
     objectFit: "contain",
     backgroundPosition: "1050px -100px",
@@ -66,7 +67,7 @@ const useStyles = makeStyles(() => ({
     width: "150px",
     marginTop: "30px",
     textTransform: "lowercase",
-    backgroundColor:"red"
+    backgroundColor: "red",
   },
   quicktip: {
     display: "flex",
@@ -91,24 +92,13 @@ const useStyles = makeStyles(() => ({
       gap: "0px",
     },
   },
-}));
+};
 
 export default function LeaderBoard({ hendleRefMenu }) {
-  const {
-    leaderBoard,
-    leaderBoard_left,
-    leaderBoard_left_h1,
-    leaderBoard_left_p,
-    button,
-    quicktip,
-    quicktip_text,
-    left,
-    quickTip_container,
-  } = useStyles();
   const QuickTip = ({ Icon, quicktip_details1, quicktip_details2 }) => (
-    <div className={quicktip}>
+    <div style={styles.quicktip}>
       {Icon}
-      <Typography className={quicktip_text} component="p">
+      <Typography style={styles.quicktip_text} component="p">
         {quicktip_details1}
         <br /> {quicktip_details2}
       </Typography>
@@ -125,22 +115,22 @@ export default function LeaderBoard({ hendleRefMenu }) {
 
   return (
     <div>
-      <div className={leaderBoard}>
-        <div className={leaderBoard_left}>
+      <div style={styles.leaderBoard}>
+        <div style={styles.leaderBoard_left}>
           <Typography
-            className={leaderBoard_left_h1}
+            style={styles.leaderBoard_left_h1}
             variant="h2"
             component="h1"
           >
             Pesan Makanan Favorit Anda <br /> dengan Mudah
           </Typography>
-          <Typography className={leaderBoard_left_p} component="p">
+          <Typography style={styles.leaderBoard_left_p} component="p">
             Kami memberikan pelayanan terbaik. <br /> Anda dapat memesan
             sekarang!
           </Typography>
           <Button
             disableElevation
-            className={button}
+            style={styles.button}
             variant="contained"
             color="warning"
             autoCapitalize="none"
@@ -149,7 +139,7 @@ export default function LeaderBoard({ hendleRefMenu }) {
           >
             our menu
           </Button>
-          <div className={quickTip_container}>
+          <div style={styles.quickTip_container}>
             <QuickTip
               Icon={<LocalMall />}
               quicktip_details1="Pilih makanan favorit anda"
@@ -167,7 +157,7 @@ export default function LeaderBoard({ hendleRefMenu }) {
             />
           </div>
         </div>
-        <div className={left}></div>
+        <div style={styles.left}></div>
       </div>
     </div>
   );

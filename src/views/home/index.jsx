@@ -1,6 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import LeaderBoard from "./LeaderBoard";
-// import LeaderBoard from "../components/home/LeaderBoard";
+import AboutSection from "./AboutSection";
+import Homemenu from "./Homemenu";
 // import AboutSection from "../components/home/AboutSection";
 // import WhyChooseUs from "../components/home/WhyChooseUs";
 // import Homemenu from "../components/home/Homemenu";
@@ -29,12 +30,11 @@ export default function Home() {
   return (
     <div>
       <LeaderBoard hendleRefMenu={hendleRefMenu} />
-      {/* <AboutSection hendleRefMenu={hendleRefMenu} />
-      <WhyChooseUs />
+      <AboutSection hendleRefMenu={hendleRefMenu} />
       <div ref={menuRef}>
         <Homemenu pagesWidth={width} />
       </div>
-      <Testimonialsection /> */}
+      {/* <Testimonialsection /> */}
     </div>
   );
 }
