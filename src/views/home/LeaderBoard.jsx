@@ -64,12 +64,10 @@ const useStyles = makeStyles(() => ({
     marginTop: "20px",
   },
   button: {
-    // borderRadius: "20px",
-    borderRadius: "50px",
+    borderRadius: "20px",
     width: "150px",
     marginTop: "30px",
     textTransform: "lowercase",
-    backgroundColor: "red",
   },
   quicktip: {
     display: "flex",
