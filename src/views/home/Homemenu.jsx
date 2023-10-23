@@ -1,11 +1,9 @@
-/* eslint-disable react/prop-types */
+import React from "react";
+import { Typography, makeStyles, Button } from "@material-ui/core";
+import {ArrowRightAlt} from "@material-ui/icons";
 import { Link } from "react-router-dom";
 import Homemenuitem from "./Homemenuitem";
 import menudata from "../../utils/menudata";
-
-import { Button, Typography } from "@mui/material";
-import { ArrowRightAlt } from "@mui/icons-material";
-import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles(() => ({
   homemenu: {

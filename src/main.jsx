@@ -1,19 +1,22 @@
-/* eslint-disable react/no-deprecated */
-import "./index.css";
-import "./App.css";
-import "@fontsource/roboto/300.css";
-import "@fontsource/roboto/400.css";
-import "@fontsource/roboto/500.css";
-import "@fontsource/roboto/700.css";
-
+import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
+import { BrowserRouter as Router, Routes } from "react-router-dom";
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
 import App from "./App";
-import { BrowserRouter } from "react-router-dom";
+import { persistedStore, store } from "./services/stores";
+
+window.store = store;
 
 ReactDOM.render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>,
+  <Provider store={store}>
+    <PersistGate loading={<p>loading</p>} persistor={persistedStore}>
+      <React.StrictMode>
+        <Router>
+          <App />
+        </Router>
+      </React.StrictMode>
+    </PersistGate>
+  </Provider>,
   document.getElementById("root")
 );

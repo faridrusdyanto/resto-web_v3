@@ -1,9 +1,10 @@
-/* eslint-disable react/prop-types */
-import { Button, Typography } from "@mui/material";
-import { ArrowRightAlt } from "@mui/icons-material";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Typography, makeStyles, Button } from '@material-ui/core';
+import {ArrowRightAlt} from '@material-ui/icons';
+
 
 import foodnapkin from "../../assets/foodnapkin.jpg";
-import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles(() => ({
   about_section: {
@@ -97,7 +98,7 @@ export default function AboutSection(props) {
           disableElevation
           className={button}
           variant="contained"
-          color="warning"
+          color="primary"
           autoCapitalize="none"
           endIcon={<ArrowRightAlt />}
           onClick={props.hendleRefMenu}

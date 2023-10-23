@@ -1,29 +1,36 @@
-/* eslint-disable react/prop-types */
-import React from "react";
-import { NavLink } from "react-router-dom";
-// import { useSelector } from "react-redux";
-
 import {
-  HomeMaxRounded,
-  FoodBankRounded,
+  HomeRounded,
+  EmojiFoodBeverage,
   ContactPhone,
   Person,
-} from "@mui/icons-material";
-import { Avatar, Box, Button, List, Toolbar, Typography } from "@mui/material";
-import { makeStyles, styled } from "@mui/styles";
+} from "@material-ui/icons";
+
+import React from "react";
+import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
+import {
+  Toolbar,
+  Avatar,
+  Button,
+  List,
+  Box,
+  styled,
+  makeStyles,
+  Typography,
+} from "@material-ui/core";
 
 // links for the side nav
 const links = [
   {
     id: "L0",
     path: "/",
-    icon: <HomeMaxRounded />,
+    icon: <HomeRounded />,
     title: "Home",
   },
   {
     id: "L1",
     path: "/allmeals",
-    icon: <FoodBankRounded />,
+    icon: <EmojiFoodBeverage />,
     title: "All Meals",
   },
 ];

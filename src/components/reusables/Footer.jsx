@@ -1,9 +1,7 @@
-/* eslint-disable react/jsx-no-target-blank */
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { AudioFile } from "@mui/icons-material";
-import { makeStyles } from "@mui/styles";
-import { Box, Paper, Typography } from "@mui/material";
+import { Box, Typography, makeStyles, Paper } from "@material-ui/core";
+import { Audiotrack } from "@material-ui/icons";
 
 const useStyles = makeStyles({
   root: (props) => ({
@@ -76,7 +74,7 @@ export default function Footer() {
     <Paper className={root}>
       <Box className={root_left}>
         <Box>
-          <AudioFile size={35} /> <span>Theomeals</span>
+          <Audiotrack size={35} /> <span>Theomeals</span>
         </Box>
         <Typography width={{ sm: "100%", md: "70%" }}>
           Thank you for trusting us with your meals. We do hope you enjoy our

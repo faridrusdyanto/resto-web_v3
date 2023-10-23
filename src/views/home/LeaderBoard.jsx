@@ -1,14 +1,14 @@
-/* eslint-disable react/prop-types */
-import { Button, Typography } from "@mui/material";
+import React, { useRef } from "react";
+import { Link } from "react-router-dom";
+import { Typography, makeStyles, Button } from "@material-ui/core";
 import {
   LibraryAddCheck,
-  ArrowRightAlt,
   ListAlt,
+  ArrowRightAlt,
   LocalMall,
-} from "@mui/icons-material";
-import homebg from "../../assets/home_bg.jpg";
+} from "@material-ui/icons";
 
-import { makeStyles } from "@mui/styles";
+import homebg from "../../assets/home_bg.jpg";
 
 const useStyles = makeStyles(() => ({
   header: {
@@ -144,7 +144,7 @@ export default function LeaderBoard({ hendleRefMenu }) {
             disableElevation
             className={button}
             variant="contained"
-            color="warning"
+            color="primary"
             autoCapitalize="none"
             endIcon={<ArrowRightAlt />}
             onClick={hendleRefMenu}

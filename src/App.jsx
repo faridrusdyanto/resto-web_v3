@@ -1,18 +1,22 @@
+import React, { useEffect } from "react";
+import dotenv from "dotenv";
+import { ThemeProvider } from "@material-ui/core/styles";
+import { useDispatch } from "react-redux";
 import "./App.css";
-import Navbar from "./components/reusables/Navbar";
+
 import ScrollToTop from "./components/reusables/ScrollToTop";
-import Routerlement from "./router/router-element";
-import theme from "./theme";
+import Navbar from "./components/reusables/Navbar";
 import Footer from "./components/reusables/Footer";
-import { ThemeProvider } from "@mui/material/styles";
+import ThemeRoutes from "./router";
+
+import theme from './theme'
 
 function App() {
-  // return <Routerlement />;
   return (
     <ThemeProvider theme={theme}>
       <ScrollToTop />
       <Navbar />
-      <Routerlement />
+      <ThemeRoutes />
       <Footer />
     </ThemeProvider>
   );

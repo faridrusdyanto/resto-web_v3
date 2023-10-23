@@ -1,10 +1,7 @@
-/* eslint-disable react/jsx-no-duplicate-props */
-/* eslint-disable react/prop-types */
-import { Button, Typography } from "@mui/material";
+import React from "react";
+import { Typography, makeStyles, Button } from "@material-ui/core";
 
-import { makeStyles } from "@mui/styles";
-
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   home_menu_item: {
     border: "1px solid #F2F2F2",
     height: "250px",
@@ -17,8 +14,8 @@ const useStyles = makeStyles(() => ({
     marginTop: "20px",
     transition: "all 0.6s ease-in-out",
     "&:hover": {
-      // background: theme.palette.primary.main,
-      background: "#F2F2F2",
+      background: theme.palette.primary.main,
+      // background: "#F2F2F2",
       "& button": {
         background: "white",
       },
@@ -130,7 +127,7 @@ export default function Homemenuitem({
         </Typography>
         <Button
           disableElevation={true}
-          color="warning"
+          color="primary"
           variant="contained"
           className={cart_button}
         >
