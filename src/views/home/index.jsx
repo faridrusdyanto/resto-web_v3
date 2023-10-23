@@ -2,10 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import LeaderBoard from "./LeaderBoard";
 import AboutSection from "./AboutSection";
 import Homemenu from "./Homemenu";
-// import AboutSection from "../components/home/AboutSection";
-// import WhyChooseUs from "../components/home/WhyChooseUs";
-// import Homemenu from "../components/home/Homemenu";
-// import Testimonialsection from "../components/home/Testimonialsection";
 
 export default function Home() {
   const menuRef = useRef(null);
@@ -34,7 +30,6 @@ export default function Home() {
       <div ref={menuRef}>
         <Homemenu pagesWidth={width} />
       </div>
-      {/* <Testimonialsection /> */}
     </div>
   );
 }

@@ -6,10 +6,11 @@ import {
   ListAlt,
   LocalMall,
 } from "@mui/icons-material";
-import { makeStyles } from "@mui/styles";
 import homebg from "../../assets/home_bg.jpg";
 
-const styles = {
+import { makeStyles } from "@mui/styles";
+
+const useStyles = makeStyles(() => ({
   header: {
     backgroundColor: "#400CCC",
     paddingRight: "79px",
@@ -63,7 +64,8 @@ const styles = {
     marginTop: "20px",
   },
   button: {
-    borderRadius: "20px",
+    // borderRadius: "20px",
+    borderRadius: "50px",
     width: "150px",
     marginTop: "30px",
     textTransform: "lowercase",
@@ -92,13 +94,25 @@ const styles = {
       gap: "0px",
     },
   },
-};
+}));
 
 export default function LeaderBoard({ hendleRefMenu }) {
+  const {
+    leaderBoard,
+    leaderBoard_left,
+    leaderBoard_left_h1,
+    leaderBoard_left_p,
+    button,
+    quicktip,
+    quicktip_text,
+    left,
+    quickTip_container,
+  } = useStyles();
+
   const QuickTip = ({ Icon, quicktip_details1, quicktip_details2 }) => (
-    <div style={styles.quicktip}>
+    <div className={quicktip}>
       {Icon}
-      <Typography style={styles.quicktip_text} component="p">
+      <Typography className={quicktip_text} component="p">
         {quicktip_details1}
         <br /> {quicktip_details2}
       </Typography>
@@ -115,22 +129,22 @@ export default function LeaderBoard({ hendleRefMenu }) {
 
   return (
     <div>
-      <div style={styles.leaderBoard}>
-        <div style={styles.leaderBoard_left}>
+      <div className={leaderBoard}>
+        <div className={leaderBoard_left}>
           <Typography
-            style={styles.leaderBoard_left_h1}
+            className={leaderBoard_left_h1}
             variant="h2"
             component="h1"
           >
             Pesan Makanan Favorit Anda <br /> dengan Mudah
           </Typography>
-          <Typography style={styles.leaderBoard_left_p} component="p">
+          <Typography className={leaderBoard_left_p} component="p">
             Kami memberikan pelayanan terbaik. <br /> Anda dapat memesan
             sekarang!
           </Typography>
           <Button
             disableElevation
-            style={styles.button}
+            className={button}
             variant="contained"
             color="warning"
             autoCapitalize="none"
@@ -139,7 +153,7 @@ export default function LeaderBoard({ hendleRefMenu }) {
           >
             our menu
           </Button>
-          <div style={styles.quickTip_container}>
+          <div className={quickTip_container}>
             <QuickTip
               Icon={<LocalMall />}
               quicktip_details1="Pilih makanan favorit anda"
@@ -157,7 +171,7 @@ export default function LeaderBoard({ hendleRefMenu }) {
             />
           </div>
         </div>
-        <div style={styles.left}></div>
+        <div className={left}></div>
       </div>
     </div>
   );

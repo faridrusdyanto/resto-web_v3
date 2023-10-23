@@ -3,8 +3,9 @@ import { Button, Typography } from "@mui/material";
 import { ArrowRightAlt } from "@mui/icons-material";
 
 import foodnapkin from "../../assets/foodnapkin.jpg";
+import { makeStyles } from "@mui/styles";
 
-const styles = {
+const useStyles = makeStyles(() => ({
   about_section: {
     display: "flex",
     width: "100%",
@@ -65,31 +66,36 @@ const styles = {
     fontFamily: "Inter, sans-serif",
     marginTop: "15px",
   },
-};
+}));
 
 export default function AboutSection(props) {
+  const {
+    button,
+    about_descriptions,
+    about_section,
+    about_section_left,
+    about_section_right,
+    about_title,
+    leaderBoard_left_h1,
+  } = useStyles();
   return (
-    <div style={styles.about_section}>
-      <div style={styles.about_section_left}></div>
-      <div style={styles.about_section_right}>
-        <Typography style={styles.about_title} component="h1">
+    <div className={about_section}>
+      <div className={about_section_left}></div>
+      <div className={about_section_right}>
+        <Typography className={about_title} component="h1">
           About
         </Typography>
-        <Typography
-          style={styles.leaderBoard_left_h1}
-          variant="h2"
-          component="h1"
-        >
+        <Typography className={leaderBoard_left_h1} variant="h2" component="h1">
           Kami adalah restoran dengan kualitas terbaik
         </Typography>
-        <Typography style={styles.about_descriptions} component="p">
+        <Typography className={about_descriptions} component="p">
           Restoran di Indonesia yang menggunakan bahan-bahan kami secara lokal,
           untuk merayakan momen spesial dalam hidup dengan menawarkan makanan,
           layanan, dan suasana terbaik
         </Typography>
         <Button
           disableElevation
-          style={styles.button}
+          className={button}
           variant="contained"
           color="warning"
           autoCapitalize="none"

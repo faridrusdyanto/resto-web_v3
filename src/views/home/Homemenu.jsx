@@ -5,8 +5,9 @@ import menudata from "../../utils/menudata";
 
 import { Button, Typography } from "@mui/material";
 import { ArrowRightAlt } from "@mui/icons-material";
+import { makeStyles } from "@mui/styles";
 
-const styles = {
+const useStyles = makeStyles(() => ({
   homemenu: {
     padding: "50px 0px",
     paddingBottom: "50px",
@@ -52,35 +53,39 @@ const styles = {
     marginTop: "10px",
     textTransform: "lowercase",
     background: "white",
-    color:'#000',
+    color: "#000",
     border: "1px solid grey",
   },
-};
+}));
 
 export default function Homemenu({ pagesWidth }) {
+  const {
+    button,
+    homemenu,
+    homemenu_data,
+    homemenu_explore,
+    homemenu_menu,
+    leaderBoard_left_h1,
+  } = useStyles();
   return (
-    <div style={styles.homemenu}>
-      <div style={styles.homemenu_explore}>
-        <Typography style={styles.homemenu_menu} component="h1">
+    <div className={homemenu}>
+      <div className={homemenu_explore}>
+        <Typography className={homemenu_menu} component="h1">
           Menu
         </Typography>
-        <Typography
-          style={styles.leaderBoard_left_h1}
-          variant="h2"
-          component="h1"
-        >
+        <Typography className={leaderBoard_left_h1} variant="h2" component="h1">
           Makanan Terlaris Kami
         </Typography>
       </div>
 
-      <div style={styles.homemenu_data}>
+      <div className={homemenu_data}>
         {[...menudata].slice(0, 4).map((data, index) => (
           <Homemenuitem key={index} {...data} pagesWidth={pagesWidth} />
         ))}
       </div>
       <Button
         disableElevation
-        style={styles.button}
+        className={button}
         variant="contained"
         autoCapitalize="none"
         endIcon={<ArrowRightAlt />}
