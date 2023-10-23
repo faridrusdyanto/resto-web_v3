@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 // assets
 import { IconShoppingCart } from "@tabler/icons";
 import Snackbars from "../../../reusables/Snackbar";
-import { Avatar, Box, makeStyles, ButtonBase, Badge } from '@material-ui/core';
+import { Avatar, Box, makeStyles, ButtonBase, Badge } from "@material-ui/core";
 
 // style constant
 const useStyles = makeStyles((theme) => ({
@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
 const CartSection = () => {
   const classes = useStyles();
   const navigate = useNavigate();
-  const { totalQuantities } = useSelector((state) => state.cartReducer);
+  // const { totalQuantities } = useSelector((state) => state.cartReducer);
   const [alertContent, setAlertContent] = React.useState({
     type: "error",
     content: "",
@@ -51,7 +51,7 @@ const CartSection = () => {
   };
 
   const onClickCart = async () => {
-    navigate("/checkout");
+    navigate("/trolly");
     // if (totalQuantities > 0) {
     //   navigate('/checkout');
     // } else {
@@ -79,11 +79,7 @@ const CartSection = () => {
         handleClose={handleClose}
       />
       <ButtonBase onClick={onClickCart}>
-        <Badge
-          color="secondary"
-          badgeContent={totalQuantities}
-          overlap="circular"
-        >
+        <Badge color="secondary" badgeContent={2} overlap="circular">
           <Avatar
             variant="rounded"
             className={classes.headerAvatar}

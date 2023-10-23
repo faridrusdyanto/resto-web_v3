@@ -11,10 +11,11 @@ import {
   makeStyles,
 } from "@material-ui/core";
 
-import {Menu} from "@material-ui/icons";
+import { Menu } from "@material-ui/icons";
 import { Link as RouterLink, useLocation } from "react-router-dom";
 
 import Sidedrawer from "./Sidedrawer";
+import CartSection from "../layout/MainLayout/Header/CartSection";
 // import Notification from '../layout/MainLayout/Header/NotificationSection.js';
 // import Profile from '../layout/MainLayout/Header/ProfileSection.js';
 // import Sidedrawer from './Sidedrawer.js';
@@ -26,8 +27,16 @@ const headersData = (path) => [
     href: "/",
   },
   {
-    label: "Meals",
-    href: "/allmeals",
+    label: "Food",
+    href: "/foods",
+  },
+  {
+    label: "Drink",
+    href: "/drinks",
+  },
+  {
+    label: "Appetizer",
+    href: "/appetizer",
   },
 ];
 
@@ -131,8 +140,8 @@ export default function Navbar() {
         <div className={logButtons}>
           <div>
             {/* <Profile />
-            <CartSection /> */}
-            {/* {auth.authenticated && <Notification />} */}
+             */}
+            <CartSection />
           </div>
         </div>
       </Toolbar>
@@ -184,8 +193,9 @@ export default function Navbar() {
 
         <Box>
           {/* <Profile />
-          <CartSection /> */}
+           */}
           {/* {auth.authenticated && <Notification />} */}
+          <CartSection />
         </Box>
       </Toolbar>
     );
@@ -201,7 +211,7 @@ export default function Navbar() {
       }}
       className={logo}
     >
-      Theomeals Resto
+      Farid Resto
     </Link>
   );
 

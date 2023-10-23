@@ -88,7 +88,7 @@ export default function Homemenu({ pagesWidth }) {
         autoCapitalize="none"
         endIcon={<ArrowRightAlt />}
         component={Link}
-        to={"/allmeals"}
+        to={"/foods"}
       >
         see all food
       </Button>

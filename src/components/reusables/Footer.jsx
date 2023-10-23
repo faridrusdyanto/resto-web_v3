@@ -74,7 +74,7 @@ export default function Footer() {
     <Paper className={root}>
       <Box className={root_left}>
         <Box>
-          <Audiotrack size={35} /> <span>Theomeals</span>
+          <Audiotrack size={35} /> <span>Farid</span>
         </Box>
         <Typography width={{ sm: "100%", md: "70%" }}>
           Thank you for trusting us with your meals. We do hope you enjoy our
