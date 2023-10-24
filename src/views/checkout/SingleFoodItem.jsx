@@ -65,7 +65,6 @@ const useStyles = makeStyles((theme) => ({
   food_price: {
     color: theme.palette.lightdark3,
     fontSize: '.9rem',
-    color: 'tomato',
   },
   tag__red: {
     marginTop: '5px',
@@ -162,7 +161,7 @@ export default function SingleFoodItem({
           </Typography>
           <Typography className={food_details}>{sub_title}</Typography>
         </div>
-        <Typography className={food_price}>#{price}</Typography>
+        <Typography className={food_price}>{price}</Typography>
       </div>
       <Button
         onClick={() => addItem(item)}

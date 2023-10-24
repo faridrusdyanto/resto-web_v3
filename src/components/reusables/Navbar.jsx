@@ -1,21 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
 import {
   AppBar,
   Toolbar,
   Button,
-  IconButton,
-  Drawer,
   Link,
   Box,
   makeStyles,
 } from "@material-ui/core";
 
-import { Menu } from "@material-ui/icons";
 import { Link as RouterLink, useLocation } from "react-router-dom";
 
-import Sidedrawer from "./Sidedrawer";
-import CartSection from "../layout/MainLayout/Header/CartSection"; 
+import CartSection from "../layout/MainLayout/Header/CartSection";
 
 const headersData = (path) => [
   {
@@ -68,10 +63,6 @@ const useStyles = makeStyles({
     display: "flex",
     justifyContent: "space-between",
   },
-  drawerContainer: {
-    padding: "5px 0px",
-    width: "280px",
-  },
   logButtons: {
     display: "flex",
   },
@@ -102,15 +93,13 @@ export default function Navbar() {
   // const auth = useSelector((state) => state.authReducer);
   const location = useLocation();
 
-  const { header, logo, menuButton, toolbar, drawerContainer, logButtons } =
-    useStyles(location);
+  const { header, logo, menuButton, toolbar, logButtons } = useStyles(location);
 
   const [state, setState] = useState({
     mobileView: true,
-    drawerOpen: false,
   });
 
-  const { mobileView, drawerOpen } = state;
+  const { mobileView } = state;
 
   useEffect(() => {
     const setResponsiveness = () => {
@@ -134,63 +123,26 @@ export default function Navbar() {
         {femmecubatorLogo}
         <div>{getMenuButtons()}</div>
         <div className={logButtons}>
-          <div>
-            {/* <Profile />
-             */}
-            <CartSection />
-          </div>
+          <CartSection />
         </div>
       </Toolbar>
     );
   };
 
   const displayMobile = () => {
-    const handleDrawerOpen = () =>
-      setState((prevState) => ({ ...prevState, drawerOpen: true }));
-    const handleDrawerClose = () =>
-      setState((prevState) => ({ ...prevState, drawerOpen: false }));
-
     return (
       <Toolbar
         style={{
           display: "flex",
           justifyContent: "space-between",
-
           width: "100vw",
           marginRight: 0,
         }}
       >
         <Box display="flex" alignItems="center">
-          <IconButton
-            {...{
-              edge: "start",
-              color: "inherit",
-              "aria-label": "menu",
-              "aria-haspopup": "true",
-              onClick: handleDrawerOpen,
-            }}
-          >
-            <Menu />
-          </IconButton>
-          <Drawer
-            {...{
-              anchor: "left",
-              open: drawerOpen,
-              onClose: handleDrawerClose,
-            }}
-          >
-            <div className={drawerContainer}>
-              <Sidedrawer onClose={handleDrawerClose} />
-            </div>
-          </Drawer>
-
           <div>{femmecubatorLogo}</div>
         </Box>
-
         <Box>
-          {/* <Profile />
-           */}
-          {/* {auth.authenticated && <Notification />} */}
           <CartSection />
         </Box>
       </Toolbar>
