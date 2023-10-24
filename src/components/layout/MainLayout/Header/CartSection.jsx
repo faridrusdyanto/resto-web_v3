@@ -2,14 +2,11 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-// material-ui
 
-// assets
 import { IconShoppingCart } from "@tabler/icons";
 import Snackbars from "../../../reusables/Snackbar";
 import { Avatar, Box, makeStyles, ButtonBase, Badge } from "@material-ui/core";
 
-// style constant
 const useStyles = makeStyles((theme) => ({
   headerAvatar: {
     cursor: "pointer",
@@ -34,11 +31,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// ===========================|| Cart ||=========================== //
 const CartSection = () => {
   const classes = useStyles();
   const navigate = useNavigate();
-  // const { totalQuantities } = useSelector((state) => state.cartReducer);
   const [alertContent, setAlertContent] = React.useState({
     type: "error",
     content: "",

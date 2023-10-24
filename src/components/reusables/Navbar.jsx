@@ -15,11 +15,7 @@ import { Menu } from "@material-ui/icons";
 import { Link as RouterLink, useLocation } from "react-router-dom";
 
 import Sidedrawer from "./Sidedrawer";
-import CartSection from "../layout/MainLayout/Header/CartSection";
-// import Notification from '../layout/MainLayout/Header/NotificationSection.js';
-// import Profile from '../layout/MainLayout/Header/ProfileSection.js';
-// import Sidedrawer from './Sidedrawer.js';
-// import CartSection from '../layout/MainLayout/Header/CartSection.js';
+import CartSection from "../layout/MainLayout/Header/CartSection"; 
 
 const headersData = (path) => [
   {

@@ -1,22 +1,7 @@
-// import { createBrowserRouter } from "react-router-dom";
-// import Routerlement from "./router-element";
+import { useRoutes } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-// const router = createBrowserRouter([
-//   {
-//     path: "*",
-//     element: <Routerlement />,
-//   },
-// ]);
-
-// export default router;
-
-import { useRoutes } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-
-// routes
-import MainRoutes from './Mainroutes';
-
-// ===========================|| ROUTING RENDER ||=========================== //
+import MainRoutes from "./Mainroutes";
 
 export default function ThemeRoutes() {
   const authed = useSelector((state) => state.authReducer.authenticated);

@@ -28,7 +28,7 @@ const useStyles = makeStyles({
   }),
   root_left: {
     flex: "0.6",
-    //  border: '1px solid red',
+     border: '1px solid red',
 
     "& > :nth-child(1)": {
       display: "flex",

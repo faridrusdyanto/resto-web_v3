@@ -19,7 +19,6 @@ import {
   Typography,
 } from "@material-ui/core";
 
-// links for the side nav
 const links = [
   {
     id: "L0",
@@ -35,7 +34,6 @@ const links = [
   },
 ];
 
-// style const
 const useStyles = makeStyles((theme) => ({
   label: {
     marginRight: "20px",

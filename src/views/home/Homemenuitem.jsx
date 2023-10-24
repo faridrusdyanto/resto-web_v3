@@ -15,7 +15,6 @@ const useStyles = makeStyles((theme) => ({
     transition: "all 0.6s ease-in-out",
     "&:hover": {
       background: theme.palette.primary.main,
-      // background: "#F2F2F2",
       "& button": {
         background: "white",
       },

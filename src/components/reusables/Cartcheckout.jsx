@@ -1,17 +1,14 @@
 import React from "react";
 import CancelOutlinedIcon from "@material-ui/icons/CancelOutlined";
 import { useDispatch } from "react-redux";
-import { makeStyles } from "@mui/styles";
-import { Typography } from "@mui/material";
+import { Typography, makeStyles } from "@material-ui/core";
 
-//material ui style
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     width: "80%",
     alignItems: "center",
     padding: "5px 25px",
-    //  border: '1px solid red',
   },
   cart_cancelicon: {
     fontSize: "1rem",
