@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Typography, makeStyles, Button } from "@material-ui/core";
+import "../../App.css"
 
 const useStyles = makeStyles((theme) => ({
   home_menu_item: {
@@ -77,6 +78,8 @@ export default function Homemenuitem({
   price,
   pagesWidth,
 }) {
+  const ref = useRef();
+
   const {
     cart_button,
     hmi_food_colories,
@@ -88,6 +91,15 @@ export default function Homemenuitem({
     home_menu_item,
     lower_div,
   } = useStyles();
+
+  const handleClick = () => {
+    ref.current.classList.add("send-to-cart");
+    setTimeout(() => {
+      ref.current.classList.remove("send-to-cart");
+      onProductAdd();
+    }, 1000);
+  };
+
   return (
     <div
       className={home_menu_item}
@@ -102,6 +114,7 @@ export default function Homemenuitem({
             : (15 / 100) * pagesWidth,
       }}
     >
+      <span ref={ref} className="cart-item"></span>
       <div
         style={{
           height: "75%",
@@ -129,6 +142,7 @@ export default function Homemenuitem({
           color="primary"
           variant="contained"
           className={cart_button}
+          onClick={handleClick}
         >
           Add
         </Button>

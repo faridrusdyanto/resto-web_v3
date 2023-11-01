@@ -1,4 +1,4 @@
-import { createStore, combineReducers, applyMiddleware } from "redux";
+import { legacy_createStore as createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { persistStore, persistReducer } from "redux-persist";
@@ -10,7 +10,7 @@ const middleware = [thunk];
 const persistConfig = {
   key: "root",
   storage: storage,
-  whitelist: ["cartReducer", "authReducer"],
+  whitelist: ["cartReducer", "authReducer", 'menuReducer'],
 };
 
 const PersistedReducer = persistReducer(persistConfig, rootReducer);

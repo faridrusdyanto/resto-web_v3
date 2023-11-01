@@ -62,3 +62,82 @@
 .ppp {
   color: red;
 }
+
+.cart-item {
+  position: absolute;
+  height: 24px;
+  width: 24px;
+  top: -10px;
+  right: -10px;
+}
+.cart-item::before {
+  /* 
+  display: block; */
+  content: "1";
+  line-height: 24px;
+  height: 24px;
+  width: 24px;
+  font-size: 12px;
+  font-weight: 600;
+  background: #2bd156;
+  color: white;
+  border-radius: 20px;
+  text-align: center;
+}
+.send-to-cart.cart-item {
+  display: block;
+  animation: xAxis 1s forwards cubic-bezier(0.29, 0.96, 0.96, 0.96);
+  /* cubic-bezier(1, 0.44, 0.84, 0.165); */
+  /* background: #2bd156;
+  color: white;
+  content: "1"; */
+}
+
+.send-to-cart.cart-item::before {
+  /* animation: yAxis 1s infinite forwards cubic-bezier(.29,.96,.96,.96); */
+  /* //cubic-bezier(0.165, 0.84, 0.54, 2); */
+  /* background: #2bd156;
+  color: white;
+  content: "1"; */
+  /* background: red;
+  border-radius: 50%; */
+  /* position: fixed; */
+  /* width: 50px;
+  height: 50px; */
+  top: 0%;
+  animation-name: bounce;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+  animation-timing-function: cubic-bezier(0.165, 0.84, 0.54, 2);
+}
+
+.shake {
+  animation: shakeCart 0.4s ease-in-out forwards;
+}
+
+@keyframes xAxis {
+  100% {
+    transform: translateX(calc(100vw - 150px));
+  }
+}
+
+@keyframes yAxis {
+  100% {
+    transform: translateY(-104px);
+  }
+}
+
+@keyframes shakeCart {
+  25% {
+    transform: translateX(6px);
+  }
+  50% {
+    transform: translateX(-4px);
+  }
+  75% {
+    transform: translateX(2px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}

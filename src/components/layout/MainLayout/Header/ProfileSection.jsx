@@ -195,13 +195,13 @@ const ProfileSection = () => {
   const [dropDownData, setDropDownData] = React.useState(null);
 
   const [open, setOpen] = React.useState(false);
-  React.useEffect(() => {
-    if (state.authenticated) {
-      setDropDownData(signedinUserLinks);
-    } else {
-      setDropDownData(unSignedinUserLinks);
-    }
-  }, [state.authenticated]);
+  // React.useEffect(() => {
+  //   if (state.authenticated) {
+  //     setDropDownData(signedinUserLinks);
+  //   } else {
+  //     setDropDownData(unSignedinUserLinks);
+  //   }
+  // }, [state.authenticated]);
 
   const anchorRef = React.useRef(null);
   const handleLogout = async () => {
@@ -233,7 +233,7 @@ const ProfileSection = () => {
         icon={<IconUser stroke={1.5} size="1.3rem" />}
         label={
           <Typography>
-            {state.authenticated ? `  ${state.user.firstName}` : 'Account'}
+            {/* {state.authenticated ? `  ${state.user.firstName}` : 'Account'} */}
           </Typography>
         }
         variant="outlined"
@@ -288,9 +288,9 @@ const ProfileSection = () => {
                           variant="subtitle1"
                           className={classes.name}
                         >
-                          {state.authenticated
+                          {/* {state.authenticated
                             ? `  ${state.user.firstName}`
-                            : 'User'}
+                            : 'User'} */}
                         </Typography>
                       </Grid>
                     </Grid>

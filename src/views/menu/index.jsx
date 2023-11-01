@@ -2,6 +2,15 @@ import React, { useEffect, useState } from "react";
 import { Typography, makeStyles, Tabs, Tab, Box } from "@material-ui/core";
 import Homemenuitem from "../home/Homemenuitem";
 import menudata from "../../utils/menudata";
+import { connect } from "react-redux";
+
+import {
+  getAllMenuAndCategory,
+  getCategoryAndMenu,
+  getMenuById,
+  onOrderMenu,
+  menuInTrolly,
+} from "../../services/actions/menu.actions";
 
 const useStyles = makeStyles((theme) => ({
   homemenu: {
@@ -51,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Menu() {
+function Menu(props) {
   const { homemenu_menu, homemenu_explore, homemenu, homemenu_data } =
     useStyles();
   const [menus, setmenus] = useState([]);
@@ -89,6 +98,8 @@ export default function Menu() {
     setmenus(fic);
     setTabSelect(newValue);
   };
+
+  console.log(props, "props=============");
   return (
     <div className={homemenu}>
       <div className={homemenu_explore}>
@@ -131,3 +142,17 @@ export default function Menu() {
     </div>
   );
 }
+
+const mapStateToProps = (state) => ({
+  menus: state.menus,
+});
+
+const mapDispatchToProps = {
+  getAllMenuAndCategory,
+  getCategoryAndMenu,
+  getMenuById,
+  onOrderMenu,
+  menuInTrolly,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Menu);

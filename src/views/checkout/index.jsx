@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, Navigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch, connect } from "react-redux";
 import { usePaystackPayment } from "react-paystack";
 import {
   makeStyles,
@@ -30,6 +30,14 @@ import NotFound from "../../components/reusables/NotFound";
 import use_avatar from "../../utils/use_avatar.json";
 import getCookie from "../../utils/getCookie";
 import menudata from "../../utils/menudata";
+
+import {
+  getAllMenuAndCategory,
+  getCategoryAndMenu,
+  getMenuById,
+  onOrderMenu,
+  menuInTrolly,
+} from "../../services/actions/menu.actions";
 
 let values = null;
 
@@ -173,7 +181,7 @@ const muiTheme = createTheme({
 
 const sleep = (time) => new Promise((acc) => setTimeout(acc, time));
 
-export default function Checkout() {
+function Checkout() {
   const {
     edit_address,
     checkout,
@@ -658,3 +666,17 @@ export function FormikStepper({ children, ...props }) {
     </Formik>
   );
 }
+
+const mapStateToProps = (state) => ({
+  menus: state.menus,
+});
+
+const mapDispatchToProps = {
+  getAllMenuAndCategory,
+  getCategoryAndMenu,
+  getMenuById,
+  onOrderMenu,
+  menuInTrolly,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Checkout);

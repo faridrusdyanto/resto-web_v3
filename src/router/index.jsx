@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import MainRoutes from "./Mainroutes";
 
 export default function ThemeRoutes() {
-  const authed = useSelector((state) => state.authReducer.authenticated);
+  const authed = "user"//useSelector((state) => state.authReducer.authenticated);
 
   return useRoutes(MainRoutes(authed));
 }

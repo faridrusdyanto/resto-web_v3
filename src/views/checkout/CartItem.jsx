@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Typography, makeStyles } from "@material-ui/core";
 import { CancelOutlined } from "@material-ui/icons";
 import { useDispatch } from "react-redux";
@@ -64,6 +64,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CartItem({ _id, title, price, quantity = 2 }) {
   const dispatch = useDispatch();
+  const ref = useRef();
+
   const {
     root,
     cart_items_button,
@@ -71,8 +73,18 @@ export default function CartItem({ _id, title, price, quantity = 2 }) {
     cart_price,
     cart_cancelicon,
   } = useStyles();
+
+  const handleClick = () => {
+    ref.current.classList.add("send-to-cart");
+    setTimeout(() => {
+      ref.current.classList.remove("send-to-cart");
+      onProductAdd();
+    }, 1000);
+  };
+
   return (
-    <div className={root}>
+    <div  className={root}>
+      <span ref={ref} className="cart-item"></span>
       <div>
         <Typography className={cart_foodname}>{title}</Typography>
         <Typography className={cart_price}>{price}</Typography>
