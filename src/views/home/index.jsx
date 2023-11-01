@@ -45,7 +45,9 @@ function Home(props) {
   );
 }
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+  menus: state,
+});
 
 const mapDispatchToProps = {
   getAllMenuAndCategory,

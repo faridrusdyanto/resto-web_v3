@@ -144,7 +144,7 @@ function Menu(props) {
 }
 
 const mapStateToProps = (state) => ({
-  menus: state.menus,
+  menus: state,
 });
 
 const mapDispatchToProps = {
