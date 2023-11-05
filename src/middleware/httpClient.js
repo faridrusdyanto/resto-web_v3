@@ -28,7 +28,7 @@ instance.interceptors.response.use(
 const ApiGet = async (url, body) => {
   return new Promise((resolve, reject) => {
     instance
-      .post(url, body)
+      .get(url, body)
       .then((res) => resolve(res.data))
       .catch((err) => reject(err));
   });
