@@ -39,14 +39,14 @@ function Home(props) {
       <LeaderBoard hendleRefMenu={hendleRefMenu} />
       <AboutSection hendleRefMenu={hendleRefMenu} />
       <div ref={menuRef}>
-        <Homemenu pagesWidth={width} {...props} />
+        <Homemenu pagesWidth={width} {...props} Items={props.menus.menuCategories} />
       </div>
     </div>
   );
 }
 
 const mapStateToProps = (state) => ({
-  menus: state,
+  menus: state.menuReducers,
 });
 
 const mapDispatchToProps = {

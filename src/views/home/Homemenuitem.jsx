@@ -72,9 +72,9 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Homemenuitem({
   image_path,
-  title,
-  sub_title,
-  colories,
+  product_name,
+  product_desc,
+  category_name,
   price,
   pagesWidth,
 }) {
@@ -124,13 +124,13 @@ export default function Homemenuitem({
           <img className={hmi_img} src={image_path} />
         </div>
         <Typography className={hmi_food_title} variant="h2" component="h1">
-          {title}
+          {product_name}
         </Typography>
         <Typography className={hmi_food_subtitle} variant="h2" component="h1">
-          {sub_title}
+          {product_desc}
         </Typography>
         <Typography className={hmi_food_colories} variant="h2" component="h1">
-          {colories}
+          {category_name}
         </Typography>
       </div>
       <div className={lower_div}>

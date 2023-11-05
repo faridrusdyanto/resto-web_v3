@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Typography, makeStyles, Button } from "@material-ui/core";
 import {ArrowRightAlt} from "@material-ui/icons";
 import { Link } from "react-router-dom";
@@ -56,7 +56,15 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default function Homemenu({ pagesWidth }) {
+export default function Homemenu({ pagesWidth, Items, ...props }) {
+  useEffect(() => {
+    console.log(props, 'props============')
+  
+    // return () => {
+    //   props
+    // }
+  }, [props])
+  
   const {
     button,
     homemenu,
@@ -77,7 +85,7 @@ export default function Homemenu({ pagesWidth }) {
       </div>
 
       <div className={homemenu_data}>
-        {[...menudata].slice(0, 4).map((data, index) => (
+        {[...Items].slice(0, 4).map((data, index) => (
           <Homemenuitem key={index} {...data} pagesWidth={pagesWidth} />
         ))}
       </div>
