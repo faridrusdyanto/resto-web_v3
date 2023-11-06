@@ -57,13 +57,6 @@ const useStyles = makeStyles(() => ({
 }));
 
 export default function Homemenu({ pagesWidth, Items, ...props }) {
-  useEffect(() => {
-    console.log(props, 'props============')
-  
-    // return () => {
-    //   props
-    // }
-  }, [props])
   
   const {
     button,

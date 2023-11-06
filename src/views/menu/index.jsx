@@ -69,18 +69,25 @@ function Menu(props) {
   const [width, setwidth] = useState(window.innerWidth);
 
   useEffect(() => {
-    if (menudata) {
-      const newMenu = [...menudata];
+    props.getAllMenuAndCategory();
+    props.getCategoryAndMenu();
+  }, [])
+  
+  useEffect(() => {
+    console.log('====================================');
+    console.log(props);
+    console.log('====================================');
+    if (props.menus.menuCategories.length > 0) {
+      const newMenu = [...props.menus.menuCategories];
       let findCategory = [...new Set(newMenu.map((x) => x.category))];
       let fic = newMenu.filter(
         (x) =>
           x.category?.toLowerCase() === findCategory[tabSelect]?.toLowerCase()
       );
-      console.log(fic);
       setmenus(fic);
       settabs(findCategory);
     }
-  }, [menudata]);
+  }, [props]);
   useEffect(() => {
     function handleResize() {
       setwidth(window.innerWidth);
@@ -92,14 +99,13 @@ function Menu(props) {
   }, []);
 
   const handleChange = (event, newValue) => {
-    const newMenu = [...menudata];
+    const newMenu = [...props.menus.menuCategories];
     const findTab = [...tabs];
     let fic = newMenu.filter((x) => x.category === findTab[newValue]);
     setmenus(fic);
     setTabSelect(newValue);
   };
 
-  console.log(props, "props=============");
   return (
     <div className={homemenu}>
       <div className={homemenu_explore}>
@@ -124,7 +130,7 @@ function Menu(props) {
       {tabSelect === 0 && (
         <Box p={3}>
           <div className={homemenu_data}>
-            {menus.map((data, index) => (
+            {props.menus.menuCategories.map((data, index) => (
               <Homemenuitem key={index} {...data} pagesWidth={width} />
             ))}
           </div>
@@ -133,7 +139,7 @@ function Menu(props) {
       {tabSelect === 1 && (
         <Box p={3}>
           <div className={homemenu_data}>
-            {menus.map((data, index) => (
+            {props.menus.menuCategories.map((data, index) => (
               <Homemenuitem key={index} {...data} pagesWidth={width} />
             ))}
           </div>
@@ -144,7 +150,7 @@ function Menu(props) {
 }
 
 const mapStateToProps = (state) => ({
-  menus: state,
+  menus: state.menuReducers,
 });
 
 const mapDispatchToProps = {
