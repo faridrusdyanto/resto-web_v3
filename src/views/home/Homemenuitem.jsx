@@ -71,7 +71,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Homemenuitem({
-  image_path,
+  image,
   product_name,
   product_desc,
   category_name,
@@ -121,7 +121,7 @@ export default function Homemenuitem({
         }}
       >
         <div className={hmi_img_div}>
-          <img className={hmi_img} src={image_path} />
+          <img className={hmi_img} src={image} />
         </div>
         <Typography className={hmi_food_title} variant="h2" component="h1">
           {product_name}
