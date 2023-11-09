@@ -9,7 +9,7 @@ import Navbar from "./components/reusables/Navbar";
 import Footer from "./components/reusables/Footer";
 import ThemeRoutes from "./router";
 
-import theme from './theme'
+import theme from "./theme";
 
 function App() {
   return (
