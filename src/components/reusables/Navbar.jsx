@@ -10,7 +10,7 @@ import {
 
 import { Link as RouterLink, useLocation } from "react-router-dom";
 
-import CartSection from "../layout/MainLayout/Header/CartSection";
+import CartSection from "../layout/Header/CartSection";
 
 const headersData = (path) => [
   {
@@ -122,7 +122,7 @@ export default function Navbar() {
       <Toolbar className={toolbar}>
         {femmecubatorLogo}
         <div>{getMenuButtons()}</div>
-        <div className={logButtons}>
+        <div>
           <CartSection />
         </div>
       </Toolbar>

@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 
 
 import { IconShoppingCart } from "@tabler/icons";
-import Snackbars from "../../../reusables/Snackbar";
+import Snackbars from "../../reusables/Snackbar";
 import { Avatar, Box, makeStyles, ButtonBase, Badge } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
