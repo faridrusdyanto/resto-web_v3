@@ -1,9 +1,11 @@
 import React, { useRef } from "react";
 import { Typography, makeStyles, Button } from "@material-ui/core";
-import "../../App.css"
+import "../../App.css";
+import Crypto from "../../utils/crypto";
+import Func from "../../utils/Func";
 
 const useStyles = makeStyles((theme) => ({
-  home_menu_item: {
+  home_menu_item:(width) =>  ({
     border: "1px solid #F2F2F2",
     height: "250px",
     borderRadius: "10px",
@@ -20,29 +22,41 @@ const useStyles = makeStyles((theme) => ({
         background: "white",
       },
     },
-  },
+    "@media only screen and (min-width: 320px) and (max-width: 480px)": {
+      width: "47.2%",
+    },
+    "@media only screen and (min-width: 120px) and (max-width: 320px)": {
+      width: "46.8%",
+    },
+  }),
   hmi_img_div: {
     display: "flex",
     justifyContent: "center",
+    margin: -7,
+    borderTopLeftRadius: "10px",
+    borderTopRightRadius: "10px",
   },
   hmi_img: {
     height: "100px",
-    width: "100px",
+    borderTopLeftRadius: "10px",
+    borderTopRightRadius: "10px",
+    width: "100%",
   },
   hmi_food_title: {
     fontFamily: "Inter, sans-serif",
-    fontSize: ".9rem",
+    fontSize: ".8rem",
     fontWeight: "bold",
     marginTop: "15px",
+    width: "100%",
   },
   hmi_food_price: {
     fontFamily: "Inter, sans-serif",
-    fontSize: ".9rem",
+    fontSize: ".7rem",
     fontWeight: "bold",
   },
   hmi_food_subtitle: {
     fontFamily: "Inter, sans-serif",
-    fontSize: ".7rem",
+    fontSize: ".8rem",
     fontWeight: "bold",
     marginTop: "2px",
   },
@@ -60,6 +74,11 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: "bold",
     borderRadius: "7px",
     height: "30px",
+    "@media only screen and (min-width: 120px) and (max-width: 320px)": {
+      width: "10px",
+      height: "20px",
+      fontSize: ".6rem",
+    },
   },
   lower_div: {
     display: "flex",
@@ -90,7 +109,7 @@ export default function Homemenuitem({
     hmi_img_div,
     home_menu_item,
     lower_div,
-  } = useStyles();
+  } = useStyles(pagesWidth);
 
   const handleClick = () => {
     ref.current.classList.add("send-to-cart");
@@ -99,21 +118,10 @@ export default function Homemenuitem({
       onProductAdd();
     }, 1000);
   };
+  const decryptedImageSrc = Crypto.decryptImg(image); // Decrypt the image source
 
   return (
-    <div
-      className={home_menu_item}
-      style={{
-        width:
-          pagesWidth <= 500
-            ? pagesWidth / 2 - 34
-            : pagesWidth <= 800
-            ? (30 / 100) * pagesWidth
-            : pagesWidth <= 1000
-            ? (22 / 100) * pagesWidth
-            : (15 / 100) * pagesWidth,
-      }}
-    >
+    <div className={home_menu_item}>
       <span ref={ref} className="cart-item"></span>
       <div
         style={{
@@ -121,7 +129,7 @@ export default function Homemenuitem({
         }}
       >
         <div className={hmi_img_div}>
-          <img className={hmi_img} src={image} />
+          <img className={hmi_img} src={decryptedImageSrc} />
         </div>
         <Typography className={hmi_food_title} variant="h2" component="h1">
           {product_name}
@@ -135,7 +143,7 @@ export default function Homemenuitem({
       </div>
       <div className={lower_div}>
         <Typography className={hmi_food_price} variant="h2" component="h1">
-          {price}
+          {"Rp" + Func.idrCurrency(price)}
         </Typography>
         <Button
           disableElevation={true}

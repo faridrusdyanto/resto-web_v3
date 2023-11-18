@@ -1,7 +1,7 @@
-import React, { useRef } from "react";
+import React from "react";
 import { Typography, makeStyles } from "@material-ui/core";
-import { CancelOutlined } from "@material-ui/icons";
-import { useDispatch } from "react-redux";
+import Func from "../../utils/Func";
+import Crypto from "../../utils/crypto";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,21 +23,19 @@ const useStyles = makeStyles((theme) => ({
 
     "& button": {
       backgroundColor: theme.palette.green,
-      fontWeight: "600",
-      fontSize: "1rem",
       border: "none",
-      height: "30px",
-      width: "30px",
-      color: "white",
+      height: "25px",
+      width: "25px",
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
       cursor: "pointer",
+      color: "#FFF",
     },
     "& h1": {
-      fontWeight: "600",
-      fontSize: "0.9rem !important",
-      height: "30px",
+      fontWeight: "500",
+      fontSize: "14px !important",
+      height: "25px",
       width: "30px",
       display: "flex",
       justifyContent: "center",
@@ -50,68 +48,83 @@ const useStyles = makeStyles((theme) => ({
   cart_foodname: {
     fontFamily: "Mulish",
     fontWeight: "800",
+    fontSize: "14px",
+  },
+  cart_desc: {
+    fontSize: "12px",
+    color: "red",
+    cursor: "pointer",
+    fontWeight: "500",
   },
   cart_price: {
     color: theme.palette.lightdark2,
-    fontSize: "0.9rem",
+    fontSize: "0.8rem",
+    marginBottom: "8px",
+    textAlign: "right",
   },
-  cart_cancelicon: {
-    fontSize: "1rem",
-    color: "red",
-    cursor: "pointer",
+
+  hmi_img_div: {
+    backgroundColor: "rgba(0,0,0,.2)",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: "2px",
+    borderRadius: "100px",
+    display: "flex",
+  },
+  hmi_img: {
+    height: "70px",
+    width: "70px",
+    borderRadius: "100px",
+  },
+  rowItem: {
+    display: "flex",
+    flexDirection: "row",
+    width: "100%",
+  },
+  itembody: {
+    display: "flex",
+    width: "100%",
+    flexDirection: "column",
+    padding: "0 5px",
   },
 }));
 
-export default function CartItem({ _id, title, price, quantity = 2 }) {
-  const dispatch = useDispatch();
-  const ref = useRef();
-
+export default function CartItem({ increment, decrement, ondetail, ...props }) {
+  const { category_name, image, price, product_name, qty } = props;
   const {
     root,
     cart_items_button,
     cart_foodname,
     cart_price,
-    cart_cancelicon,
+    hmi_img_div,
+    hmi_img,
+    rowItem,
+    itembody,
+    cart_desc,
   } = useStyles();
 
-  const handleClick = () => {
-    ref.current.classList.add("send-to-cart");
-    setTimeout(() => {
-      ref.current.classList.remove("send-to-cart");
-      onProductAdd();
-    }, 1000);
-  };
+  const decryptedImageSrc = Crypto.decryptImg(image);
 
   return (
-    <div  className={root}>
-      <span ref={ref} className="cart-item"></span>
-      <div>
-        <Typography className={cart_foodname}>{title}</Typography>
-        <Typography className={cart_price}>{price}</Typography>
+    <div className={`${root} ${rowItem}`}>
+      <div className={hmi_img_div}>
+        <img className={hmi_img} src={decryptedImageSrc} />
       </div>
-      <div>
-        <div className={cart_items_button}>
-          <button
-            onClick={() => dispatch({ type: "INC_SINGLE", payload: { _id } })}
-          >
-            -
-          </button>
-          <Typography variant="h1">{quantity}</Typography>
-          <button
-            onClick={() =>
-              dispatch({
-                type: "INC_SINGLE",
-                payload: { _id, increment: true },
-              })
-            }
-          >
-            +
-          </button>
+      <div className={rowItem}>
+        <div className={itembody}>
+          <Typography className={cart_foodname}>{product_name}</Typography>
+          <Typography className={cart_desc}>{category_name}</Typography>
         </div>
-        <CancelOutlined
-          onClick={() => dispatch({ type: "REMOVE", payload: _id })}
-          className={cart_cancelicon}
-        />
+        <div>
+          <Typography className={cart_price}>
+            {`Rp${Func.idrCurrency(price)}`}
+          </Typography>
+          <div className={cart_items_button}>
+            <button onClick={decrement}>-</button>
+            <Typography variant="h1">{qty}</Typography>
+            <button onClick={increment}>+</button>
+          </div>
+        </div>
       </div>
     </div>
   );

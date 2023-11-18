@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { Typography, makeStyles, Tabs, Tab, Box } from "@material-ui/core";
+import React, { useEffect, useRef, useState } from "react";
+import { Typography, makeStyles } from "@material-ui/core";
 import Homemenuitem from "../home/Homemenuitem";
-import menudata from "../../utils/menudata";
 import { connect } from "react-redux";
+import SearchIcon from "@material-ui/icons/Search";
 
 import {
   getAllMenuAndCategory,
@@ -14,55 +14,87 @@ import {
 
 const useStyles = makeStyles((theme) => ({
   homemenu: {
-    paddingBottom: "50px",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    "@media (max-width: 500px)": {
-      padding: "50px 0px",
-    },
   },
-  leaderBoard_left_h1: {
-    lineHeight: "40px",
-    fontFamily: "Inter, sans-serif",
-    fontSize: "1.8rem",
-    fontWeight: "bold",
-    marginTop: "17px",
-    textAlign: "center",
-    marginBottom: "20px",
-  },
-  homemenu_menu: {
-    fontFamily: "Inter, sans-serif",
-    fontWeight: "bold",
-    fontSize: "1rem",
-  },
-  homemenu_explore: {
+  container: {
     display: "flex",
     flexDirection: "column",
-    alignItems: "center",
   },
   homemenu_data: {
     display: "flex",
-    marginBottom: "30px",
     flexWrap: "wrap",
-    paddingTop: "30px",
-    "@media (max-width: 500px)": {
-      paddingTop: "0px",
-    },
   },
-  button: {
+  searchSection: (width) => ({
+    height: "45px",
+    display: "flex",
+    width: `${width > 300 ? width : "70%"}px`,
+    margin: "0 10px",
+    border: "1px solid rgba(0,0,0,.1)",
+    flexDirection: "row",
+    alignItems: "center",
     borderRadius: "20px",
-    width: "150px",
+    "& input": {
+      flex: 1,
+      height: "100%",
+      border: "none",
+      outline: "none",
+      borderTopRightRadius: "20px",
+      borderBottomRightRadius: "20px",
+    },
+    "& input::placeholder": {
+      fontSize: ".9rem",
+    },
+  }),
+  searchIcon: {
+    width: "40px",
+    color: theme.palette.lightdark2,
+    backgroundColor: "#FFF",
+    height: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+    display: "flex",
+    borderTopLeftRadius: "20px",
+    borderBottomLeftRadius: "20px",
+  },
+  row: (width) => ({
+    display: "flex",
+    justifyContent: "space-between",
+    flexDirection: "row",
+    width: "100%",
+    padding: "0 7px",
+    alignItems: "center",
     marginTop: "10px",
-    textTransform: "lowercase",
-    background: "white",
-    border: "1px solid grey",
+    "@media (min-width: 500px)": {
+      width: `${width}px`,
+    },
+  }),
+  titleMenu: {
+    fontFamily: "Inter, sans-serif",
+    fontSize: ".9rem",
+    fontWeight: "bold",
+    textAlign: "center",
+    marginTop: "10px",
   },
 }));
 
 function Menu(props) {
-  const { homemenu_menu, homemenu_explore, homemenu, homemenu_data } =
-    useStyles();
+  const containerRef = useRef(null);
+  const [containerWidth, setContainerWidth] = useState(0);
+  const {
+    homemenu,
+    homemenu_data,
+    searchSection,
+    searchIcon,
+    row,
+    titleMenu,
+    container,
+  } = useStyles(containerWidth);
+  console.log('====================================');
+  console.log(containerWidth);
+  console.log('====================================');
+  const inputEl = React.useRef("");
   const [menus, setmenus] = useState([]);
   const [tabs, settabs] = useState([]);
   const [tabSelect, setTabSelect] = useState(1);
@@ -71,12 +103,9 @@ function Menu(props) {
   useEffect(() => {
     props.getAllMenuAndCategory();
     props.getCategoryAndMenu();
-  }, [])
-  
+  }, []);
+
   useEffect(() => {
-    console.log('====================================');
-    console.log(props);
-    console.log('====================================');
     if (props.menus.menuCategories.length > 0) {
       const newMenu = [...props.menus.menuCategories];
       let findCategory = [...new Set(newMenu.map((x) => x.category))];
@@ -89,62 +118,68 @@ function Menu(props) {
     }
   }, [props]);
   useEffect(() => {
-    function handleResize() {
-      setwidth(window.innerWidth);
-    }
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
+    const getContainerWidth = () => {
+      if (containerRef.current) {
+        const width = containerRef.current.getBoundingClientRect().width;
+        setContainerWidth(width);
+      }
     };
+    getContainerWidth();
+    window.addEventListener("resize", getContainerWidth);
+
+    return () => window.removeEventListener("resize", getContainerWidth);
   }, []);
 
-  const handleChange = (event, newValue) => {
-    const newMenu = [...props.menus.menuCategories];
-    const findTab = [...tabs];
-    let fic = newMenu.filter((x) => x.category === findTab[newValue]);
-    setmenus(fic);
-    setTabSelect(newValue);
+  const searchHandler = () => {
+    if (inputEl.current.value !== "") {
+      const newAllmeals = meals.filter((currentMeal) => {
+        return Object.values(currentMeal)
+          .join(" ")
+          .toLowerCase()
+          .includes(inputEl.current.value.toLowerCase());
+      });
+      setAllMeals(newAllmeals);
+    } else {
+      setAllMeals(meals);
+    }
   };
-
   return (
     <div className={homemenu}>
-      <div className={homemenu_explore}>
-        <Typography className={homemenu_menu} component="h1">
-          Menu
-        </Typography>
+      <div className={searchSection}>
+        <div className={searchIcon}>
+          <SearchIcon />
+        </div>
+        <input
+          ref={inputEl}
+          onChange={searchHandler}
+          placeholder="Cari makanan yang kamu suka?"
+        />
       </div>
 
-      <Tabs
-        value={tabSelect}
-        onChange={handleChange}
-        indicatorColor="primary"
-        textColor="primary"
-        variant="fullWidth"
-        aria-label="full width tabs example"
-      >
-        {tabs.map((tab, index) => (
-          <Tab key={index} label={tab} value={index} />
-        ))}
-      </Tabs>
-
-      {tabSelect === 0 && (
-        <Box p={3}>
-          <div className={homemenu_data}>
-            {props.menus.menuCategories.map((data, index) => (
-              <Homemenuitem key={index} {...data} pagesWidth={width} />
-            ))}
-          </div>
-        </Box>
-      )}
-      {tabSelect === 1 && (
-        <Box p={3}>
-          <div className={homemenu_data}>
-            {props.menus.menuCategories.map((data, index) => (
-              <Homemenuitem key={index} {...data} pagesWidth={width} />
-            ))}
-          </div>
-        </Box>
-      )}
+      <div ref={containerRef} className={container}>
+        <div className={row}>
+          <Typography className={titleMenu} variant="h2" component="h1">
+            Makanan
+          </Typography>
+        </div>
+        <div className={homemenu_data}>
+          {props.menus.menuCategories.map((data, index) => (
+            <Homemenuitem key={index} {...data} pagesWidth={width} />
+          ))}
+        </div>
+      </div>
+      <div ref={containerRef} className={container}>
+        <div className={row}>
+          <Typography className={titleMenu} variant="h2" component="h1">
+            Minuman
+          </Typography>
+        </div>
+        <div className={homemenu_data}>
+          {props.menus.menuCategories.map((data, index) => (
+            <Homemenuitem key={index} {...data} pagesWidth={width} />
+          ))}
+        </div>
+      </div>
     </div>
   );
 }

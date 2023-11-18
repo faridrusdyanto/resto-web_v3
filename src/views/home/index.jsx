@@ -37,7 +37,7 @@ function Home(props) {
   return (
     <div>
       <LeaderBoard hendleRefMenu={hendleRefMenu} />
-      <AboutSection hendleRefMenu={hendleRefMenu} />
+      {/* <AboutSection hendleRefMenu={hendleRefMenu} /> */}
       <div ref={menuRef}>
         <Homemenu pagesWidth={width} {...props} Items={props.menus.menuCategories} />
       </div>

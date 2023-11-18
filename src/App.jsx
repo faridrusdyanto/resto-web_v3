@@ -17,7 +17,7 @@ function App() {
       <ScrollToTop />
       <Navbar />
       <ThemeRoutes />
-      <Footer />
+      {/* <Footer /> */}
     </ThemeProvider>
   );
 }

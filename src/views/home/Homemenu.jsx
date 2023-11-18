@@ -1,9 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Typography, makeStyles, Button } from "@material-ui/core";
-import {ArrowRightAlt} from "@material-ui/icons";
+import { ArrowRightAlt } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 import Homemenuitem from "./Homemenuitem";
-import menudata from "../../utils/menudata";
 
 const useStyles = makeStyles(() => ({
   homemenu: {
@@ -16,15 +15,7 @@ const useStyles = makeStyles(() => ({
       padding: "50px 0px",
     },
   },
-  leaderBoard_left_h1: {
-    lineHeight: "40px",
-    fontFamily: "Inter, sans-serif",
-    fontSize: "1.8rem",
-    fontWeight: "bold",
-    marginTop: "17px",
-    textAlign: "center",
-    marginBottom: "20px",
-  },
+
   homemenu_menu: {
     fontFamily: "Inter, sans-serif",
     fontWeight: "bold",
@@ -33,14 +24,13 @@ const useStyles = makeStyles(() => ({
   homemenu_explore: {
     display: "flex",
     flexDirection: "column",
+    width: "100%",
     alignItems: "center",
   },
+
   homemenu_data: {
     display: "flex",
-    justifyContent: "center",
-    marginBottom: "30px",
     flexWrap: "wrap",
-    paddingTop: "30px",
     "@media (max-width: 500px)": {
       paddingTop: "0px",
     },
@@ -54,45 +44,92 @@ const useStyles = makeStyles(() => ({
     color: "#000",
     border: "1px solid grey",
   },
+  row: (width) => ({
+    display: "flex",
+    justifyContent: "space-between",
+    flexDirection: "row",
+    width: "100%",
+    padding: "0 7px",
+    alignItems: "center",
+    marginTop: "10px",
+    "@media (min-width: 500px)": {
+      width: `${width}px`,
+    },
+  }),
+
+  titleMenu: {
+    fontFamily: "Inter, sans-serif",
+    fontSize: ".9rem",
+    fontWeight: "bold",
+    textAlign: "center",
+    marginTop: "10px",
+  },
+  others: {
+    borderRadius: "20px",
+    fontSize: ".7rem",
+    textTransform: "lowercase",
+    background: "white",
+    height: "20px",
+  },
 }));
 
 export default function Homemenu({ pagesWidth, Items, ...props }) {
-  
+  const containerRef = useRef(null);
+  const [containerWidth, setContainerWidth] = useState(0);
   const {
-    button,
     homemenu,
     homemenu_data,
     homemenu_explore,
     homemenu_menu,
-    leaderBoard_left_h1,
-  } = useStyles();
+    titleMenu,
+    others,
+    row,
+  } = useStyles(containerWidth);
+  useEffect(() => {
+    const getContainerWidth = () => {
+      if (containerRef.current) {
+        const width = containerRef.current.getBoundingClientRect().width;
+        setContainerWidth(width);
+      }
+    };
+
+    // Call getContainerWidth initially and on window resize
+    getContainerWidth();
+    window.addEventListener("resize", getContainerWidth);
+
+    return () => {
+      // Clean up event listener on component unmount
+      window.removeEventListener("resize", getContainerWidth);
+    };
+  }, []);
   return (
     <div className={homemenu}>
       <div className={homemenu_explore}>
         <Typography className={homemenu_menu} component="h1">
           Menu
         </Typography>
-        <Typography className={leaderBoard_left_h1} variant="h2" component="h1">
-          Makanan Terlaris Kami
-        </Typography>
+        <div className={row}>
+          <Typography className={titleMenu} variant="h2" component="h1">
+            Makanan
+          </Typography>
+          <Button
+            disableElevation
+            className={others}
+            color="secondary"
+            endIcon={<ArrowRightAlt />}
+            component={Link}
+            to={"/foods"}
+          >
+            selengkapnya
+          </Button>
+        </div>
       </div>
 
-      <div className={homemenu_data}>
+      <div ref={containerRef} className={homemenu_data}>
         {[...Items].slice(0, 4).map((data, index) => (
           <Homemenuitem key={index} {...data} pagesWidth={pagesWidth} />
         ))}
       </div>
-      <Button
-        disableElevation
-        className={button}
-        variant="contained"
-        autoCapitalize="none"
-        endIcon={<ArrowRightAlt />}
-        component={Link}
-        to={"/foods"}
-      >
-        see all food
-      </Button>
     </div>
   );
 }

@@ -1,45 +1,56 @@
 import { ApiGet, ApiPost } from "../../middleware/httpClient";
 import * as _ from "../../utils/actionTypes";
+import menudummy from "../menu-dummy";
 
 const getAllMenuAndCategory = () => (dispatch) => {
   dispatch({
     type: _.GET_MENU_AND_CATEGORY_LOAD,
     loading: true,
   });
-  ApiGet("data-product-and-category")
-    .then((res) => {
-      dispatch({
-        type: _.GET_MENU_AND_CATEGORY_SUCCESS,
-        loading: false,
-        payload: res?.data,
-      });
-    })
-    .catch((err) => {
-      dispatch({
-        type: _.GET_MENU_AND_CATEGORY_FAILED,
-        loading: false,
-      });
-    });
+  dispatch({
+    type: _.GET_MENU_AND_CATEGORY_SUCCESS,
+    loading: false,
+    payload: menudummy,
+  });
+  // ApiGet("data-product-and-category")
+  //   .then((res) => {
+  //     dispatch({
+  //       type: _.GET_MENU_AND_CATEGORY_SUCCESS,
+  //       loading: false,
+  //       payload: res?.data,
+  //     });
+  //   })
+  //   .catch((err) => {
+  //     dispatch({
+  //       type: _.GET_MENU_AND_CATEGORY_FAILED,
+  //       loading: false,
+  //     });
+  //   });
 };
 const getCategoryAndMenu = () => (dispatch) => {
   dispatch({
     type: _.GET_CATEGORY_AND_MENU_LOAD,
     loading: true,
   });
-  ApiGet("category-and-product")
-    .then((res) => {
-      dispatch({
+        dispatch({
         type: _.GET_CATEGORY_AND_MENU_SUCCESS,
         loading: false,
-        payload: res?.data,
+        payload: menudummy,
       });
-    })
-    .catch((err) => {
-      dispatch({
-        type: _.GET_CATEGORY_AND_MENU_FAILED,
-        loading: false,
-      });
-    });
+  // ApiGet("category-and-product")
+  //   .then((res) => {
+  //     dispatch({
+  //       type: _.GET_CATEGORY_AND_MENU_SUCCESS,
+  //       loading: false,
+  //       payload: res?.data,
+  //     });
+  //   })
+  //   .catch((err) => {
+  //     dispatch({
+  //       type: _.GET_CATEGORY_AND_MENU_FAILED,
+  //       loading: false,
+  //     });
+  //   });
 };
 
 const getMenuById = (id) => (dispatch) => {
