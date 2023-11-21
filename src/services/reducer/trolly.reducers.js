@@ -2,7 +2,7 @@ import * as _ from "../../utils/actionTypes";
 
 const initialState = {
   loading: false,
-  trollyItems: [],
+  trollyItems: {},
   messagestatus: null,
 };
 

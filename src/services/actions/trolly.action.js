@@ -14,25 +14,22 @@ const getListTrolly = (data) => (dispatch) => {
   }, 2000);
 };
 
-const addEditDelTrolly = (dataObj, type) => (dispatch) => {
-  let product = [];
-  product.push(dataObj);
+const addEditDelTrolly = (product, type) => (dispatch) => {
   const datas = {
-    product: [],
+    product: [...product],
     customer: {
       name: "",
       table: "",
       numberofCustomer: 5,
     },
   };
-  datas.product = product;
   dispatch({
     type: _.ADD_MENU_TROLLY,
     loading: true,
   });
   setTimeout(() => {
     dispatch({
-      type: _.ADD_MENU_TROLLY, //|| _.EDIT_MENU_TROLLY || _.REMOVE_MENU_TROLLY,
+      type: _.ADD_MENU_TROLLY,
       loading: false,
       payload: datas,
     });

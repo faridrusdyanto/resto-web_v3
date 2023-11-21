@@ -150,10 +150,9 @@ function Menu(props) {
   };
   const onAddTrolly = (item) => {
     const trollyItems = props.trolly?.trollyItems;
-    const filtered = trollyItems?.product?.filter((x) => x.id == item.id);
-    console.log(filtered);
-
-    const findAdd = {
+    let dataSelect = [];
+    /** Defined item product trolly */
+    let findAdd = {
       id: item.id,
       category_name: item.category_name,
       image: item.image,
@@ -164,7 +163,18 @@ function Menu(props) {
       totalPrice: 47500,
       qty: 1,
     };
-    props.addEditDelTrolly(findAdd, "ADD");
+    if (!trollyItems?.product || trollyItems?.product?.length <= 0) {
+      /** first product add in trolly */
+      dataSelect.push(findAdd);
+    } else {
+      /** if product exist in trolly find that index, if visible counter that qyt else push that item to trolly */
+      const index = trollyItems?.product?.findIndex((x) => x.id === item.id);
+      if (index !== -1) {
+        trollyItems.product[index].qty += 1;
+        dataSelect = trollyItems.product;
+      } else dataSelect = trollyItems.product.concat(findAdd);
+    }
+    props.addEditDelTrolly(dataSelect, "ADD");
   };
 
   return (

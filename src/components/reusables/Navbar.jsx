@@ -55,8 +55,8 @@ const useStyles = makeStyles({
     textAlign: "left",
     fontSize: "1.4rem",
     alignItems: "center",
-    flexDirection:'row',
-    display:'flex'
+    flexDirection: "row",
+    display: "flex",
   },
   menuButton: {
     fontWeight: "bold",
@@ -98,6 +98,7 @@ export default function Navbar() {
   const routes = useLocation();
   const { trollyItems } = useSelector((state) => state.trollyReducers);
   const location = useLocation();
+  let visibleBudge = routes?.pathname !== "/trolly";
 
   const { header, logo, menuButton, toolbar, logButtons } = useStyles(location);
 
@@ -106,7 +107,6 @@ export default function Navbar() {
   });
 
   const { mobileView } = state;
-
   useEffect(() => {
     const setResponsiveness = () => {
       return window.innerWidth < 900
@@ -129,7 +129,9 @@ export default function Navbar() {
         {femmecubatorLogo}
         <div>{getMenuButtons()}</div>
         <div>
-          <CartSection introllength={trollyItems?.product?.length} />
+          <CartSection
+            introllength={visibleBudge ? trollyItems?.product?.length : 0}
+          />
         </div>
       </Toolbar>
     );
@@ -149,7 +151,9 @@ export default function Navbar() {
           <div>{femmecubatorLogo}</div>
         </Box>
         <Box>
-          <CartSection introllength={trollyItems?.product?.length} />
+          <CartSection
+            introllength={visibleBudge ? trollyItems?.product?.length : 0}
+          />
         </Box>
       </Toolbar>
     );
