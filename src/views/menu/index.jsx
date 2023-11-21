@@ -3,14 +3,18 @@ import { Typography, makeStyles } from "@material-ui/core";
 import Homemenuitem from "../home/Homemenuitem";
 import { connect } from "react-redux";
 import SearchIcon from "@material-ui/icons/Search";
-
+import {
+  getListTrolly,
+  addEditDelTrolly,
+  increamentdecreamentTrolly,
+} from "../../services/actions/trolly.action";
 import {
   getAllMenuAndCategory,
   getCategoryAndMenu,
   getMenuById,
-  onOrderMenu,
-  menuInTrolly,
 } from "../../services/actions/menu.actions";
+import { ClipLoader } from "react-spinners";
+import Spinner from "../../components/reusables/Spinner";
 
 const useStyles = makeStyles((theme) => ({
   homemenu: {
@@ -35,6 +39,9 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "row",
     alignItems: "center",
     borderRadius: "20px",
+    "@media (max-width: 500px)": {
+      width: `90%`,
+    },
     "& input": {
       flex: 1,
       height: "100%",
@@ -91,9 +98,7 @@ function Menu(props) {
     titleMenu,
     container,
   } = useStyles(containerWidth);
-  console.log('====================================');
-  console.log(containerWidth);
-  console.log('====================================');
+
   const inputEl = React.useRef("");
   const [menus, setmenus] = useState([]);
   const [tabs, settabs] = useState([]);
@@ -114,7 +119,7 @@ function Menu(props) {
           x.category?.toLowerCase() === findCategory[tabSelect]?.toLowerCase()
       );
       setmenus(fic);
-      settabs(findCategory);
+      // settabs(findCategory);
     }
   }, [props]);
   useEffect(() => {
@@ -132,17 +137,36 @@ function Menu(props) {
 
   const searchHandler = () => {
     if (inputEl.current.value !== "") {
-      const newAllmeals = meals.filter((currentMeal) => {
-        return Object.values(currentMeal)
+      const newAllmeals = [...props.menus.menuCategories].filter((foodres) => {
+        return Object.values(foodres)
           .join(" ")
           .toLowerCase()
           .includes(inputEl.current.value.toLowerCase());
       });
-      setAllMeals(newAllmeals);
+      setmenus(newAllmeals);
     } else {
-      setAllMeals(meals);
+      setmenus([...props.menus.menuCategories]);
     }
   };
+  const onAddTrolly = (item) => {
+    const trollyItems = props.trolly?.trollyItems;
+    const filtered = trollyItems?.product?.filter((x) => x.id == item.id);
+    console.log(filtered);
+
+    const findAdd = {
+      id: item.id,
+      category_name: item.category_name,
+      image: item.image,
+      price: item.price,
+      discon: "5%",
+      totalDiscont: 2500,
+      product_name: item.product_name,
+      totalPrice: 47500,
+      qty: 1,
+    };
+    props.addEditDelTrolly(findAdd, "ADD");
+  };
+
   return (
     <div className={homemenu}>
       <div className={searchSection}>
@@ -163,8 +187,13 @@ function Menu(props) {
           </Typography>
         </div>
         <div className={homemenu_data}>
-          {props.menus.menuCategories.map((data, index) => (
-            <Homemenuitem key={index} {...data} pagesWidth={width} />
+          {menus.map((data, index) => (
+            <Homemenuitem
+              key={index}
+              {...data}
+              pagesWidth={width}
+              onClick={() => onAddTrolly(data)}
+            />
           ))}
         </div>
       </div>
@@ -176,24 +205,32 @@ function Menu(props) {
         </div>
         <div className={homemenu_data}>
           {props.menus.menuCategories.map((data, index) => (
-            <Homemenuitem key={index} {...data} pagesWidth={width} />
+            <Homemenuitem
+              key={index}
+              {...data}
+              pagesWidth={width}
+              onClick={() => onAddTrolly(data)}
+            />
           ))}
         </div>
       </div>
+      <Spinner color={"red"} visible={props.trolly.loading} />
     </div>
   );
 }
 
 const mapStateToProps = (state) => ({
   menus: state.menuReducers,
+  trolly: state.trollyReducers,
 });
 
 const mapDispatchToProps = {
   getAllMenuAndCategory,
   getCategoryAndMenu,
   getMenuById,
-  onOrderMenu,
-  menuInTrolly,
+  getListTrolly,
+  addEditDelTrolly,
+  increamentdecreamentTrolly,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Menu);

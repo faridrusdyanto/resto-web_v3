@@ -7,8 +7,6 @@ import {
   getAllMenuAndCategory,
   getCategoryAndMenu,
   getMenuById,
-  onOrderMenu,
-  menuInTrolly,
 } from "../../services/actions/menu.actions";
 
 function Home(props) {
@@ -39,7 +37,11 @@ function Home(props) {
       <LeaderBoard hendleRefMenu={hendleRefMenu} />
       {/* <AboutSection hendleRefMenu={hendleRefMenu} /> */}
       <div ref={menuRef}>
-        <Homemenu pagesWidth={width} {...props} Items={props.menus.menuCategories} />
+        <Homemenu
+          pagesWidth={width}
+          {...props}
+          Items={props.menus.menuCategories}
+        />
       </div>
     </div>
   );
@@ -53,8 +55,6 @@ const mapDispatchToProps = {
   getAllMenuAndCategory,
   getCategoryAndMenu,
   getMenuById,
-  onOrderMenu,
-  menuInTrolly,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

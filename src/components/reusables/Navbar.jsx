@@ -8,9 +8,11 @@ import {
   makeStyles,
 } from "@material-ui/core";
 
-import { Link as RouterLink, useLocation } from "react-router-dom";
+import { Link as RouterLink, useLocation, useRoutes } from "react-router-dom";
 
 import CartSection from "../layout/Header/CartSection";
+import { useSelector } from "react-redux";
+import ArrowLeftOutlined from "@material-ui/icons/ArrowBackIos";
 
 const headersData = (path) => [
   {
@@ -52,6 +54,9 @@ const useStyles = makeStyles({
     color: "black",
     textAlign: "left",
     fontSize: "1.4rem",
+    alignItems: "center",
+    flexDirection:'row',
+    display:'flex'
   },
   menuButton: {
     fontWeight: "bold",
@@ -90,7 +95,10 @@ const useStyles = makeStyles({
 });
 
 export default function Navbar() {
-  // const auth = useSelector((state) => state.authReducer);
+  const routes = useLocation();
+  console.log(routes.pathname, "adadaad");
+  const { trollyItems } = useSelector((state) => state.trollyReducers);
+  console.log(trollyItems?.product?.length, "trollyItems");
   const location = useLocation();
 
   const { header, logo, menuButton, toolbar, logButtons } = useStyles(location);
@@ -123,7 +131,7 @@ export default function Navbar() {
         {femmecubatorLogo}
         <div>{getMenuButtons()}</div>
         <div>
-          <CartSection />
+          <CartSection introllength={trollyItems?.product?.length} />
         </div>
       </Toolbar>
     );
@@ -143,7 +151,7 @@ export default function Navbar() {
           <div>{femmecubatorLogo}</div>
         </Box>
         <Box>
-          <CartSection />
+          <CartSection introllength={trollyItems?.product?.length} />
         </Box>
       </Toolbar>
     );
@@ -159,7 +167,8 @@ export default function Navbar() {
       }}
       className={logo}
     >
-      Farid Resto
+      {routes.pathname !== "/" && <ArrowLeftOutlined />}
+      <span>Farid Resto</span>
     </Link>
   );
 

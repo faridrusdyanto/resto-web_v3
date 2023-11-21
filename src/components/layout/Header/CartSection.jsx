@@ -2,7 +2,6 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-
 import { IconShoppingCart } from "@tabler/icons";
 import Snackbars from "../../reusables/Snackbar";
 import { Avatar, Box, makeStyles, ButtonBase, Badge } from "@material-ui/core";
@@ -31,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CartSection = () => {
+const CartSection = ({ introllength }) => {
   const classes = useStyles();
   const navigate = useNavigate();
   const [alertContent, setAlertContent] = React.useState({
@@ -65,7 +64,7 @@ const CartSection = () => {
 
     setOpen(false);
   };
-
+  console.log(introllength, "introllength");
   return (
     <Box component="span" className={classes.box}>
       <Snackbars
@@ -74,7 +73,7 @@ const CartSection = () => {
         handleClose={handleClose}
       />
       <ButtonBase onClick={onClickCart}>
-        <Badge color="secondary" badgeContent={2} overlap="circular">
+        <Badge color="secondary" badgeContent={introllength} overlap="circular">
           <Avatar
             variant="rounded"
             className={classes.headerAvatar}

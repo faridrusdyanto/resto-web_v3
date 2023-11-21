@@ -5,7 +5,7 @@ import Crypto from "../../utils/crypto";
 import Func from "../../utils/Func";
 
 const useStyles = makeStyles((theme) => ({
-  home_menu_item:(width) =>  ({
+  home_menu_item: (width) => ({
     border: "1px solid #F2F2F2",
     height: "250px",
     borderRadius: "10px",
@@ -96,6 +96,7 @@ export default function Homemenuitem({
   category_name,
   price,
   pagesWidth,
+  onClick = () => {},
 }) {
   const ref = useRef();
 
@@ -112,11 +113,12 @@ export default function Homemenuitem({
   } = useStyles(pagesWidth);
 
   const handleClick = () => {
-    ref.current.classList.add("send-to-cart");
-    setTimeout(() => {
-      ref.current.classList.remove("send-to-cart");
-      onProductAdd();
-    }, 1000);
+    onClick();
+    // ref.current.classList.add("send-to-cart");
+    // setTimeout(() => {
+    //   ref.current.classList.remove("send-to-cart");
+    //   onClick();
+    // }, 1000);
   };
   const decryptedImageSrc = Crypto.decryptImg(image); // Decrypt the image source
 

@@ -1,12 +1,9 @@
-import React, { useEffect } from "react";
-import dotenv from "dotenv";
+import React from "react";
 import { ThemeProvider } from "@material-ui/core/styles";
-import { useDispatch } from "react-redux";
 import "./App.css";
 
 import ScrollToTop from "./components/reusables/ScrollToTop";
 import Navbar from "./components/reusables/Navbar";
-import Footer from "./components/reusables/Footer";
 import ThemeRoutes from "./router";
 
 import theme from "./theme";
@@ -17,7 +14,6 @@ function App() {
       <ScrollToTop />
       <Navbar />
       <ThemeRoutes />
-      {/* <Footer /> */}
     </ThemeProvider>
   );
 }

@@ -2,8 +2,15 @@ import * as React from "react";
 import { makeStyles, Typography, Button } from "@material-ui/core";
 
 import CartItem from "./CartItem";
-import menudummy from "../../services/menu-dummy";
 import Func from "../../utils/Func";
+import { connect } from "react-redux";
+import {
+  getListTrolly,
+  addEditDelTrolly,
+  increamentdecreamentTrolly,
+} from "../../services/actions/trolly.action";
+import { PlusOne, Add } from "@material-ui/icons";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -68,9 +75,50 @@ const useStyles = makeStyles((theme) => ({
   Sub_discont: {
     textDecoration: "line-through",
   },
+  row: (width) => ({
+    display: "flex",
+    justifyContent: "space-between",
+    flexDirection: "row",
+    width: "100%",
+    padding: "0 7px",
+    alignItems: "flex-end",
+    marginTop: "10px",
+    "@media (min-width: 500px)": {
+      width: `${width}px`,
+    },
+  }),
+
+  titleMenu: {
+    fontFamily: "Inter, sans-serif",
+    fontSize: ".9rem",
+    fontWeight: "bold",
+    textAlign: "center",
+    marginTop: "10px",
+  },
+  others: {
+    borderRadius: "20px",
+    fontSize: ".7rem",
+    textTransform: "lowercase",
+    background: "white",
+    height: "20px",
+    marginRight: -15,
+  },
+  centered: {
+    alignItems: "center",
+    justifyContent: "center",
+    display:'flex',
+    height:'80%',
+    marginTop:'20%',
+    "& h3":{
+      textAlign:'center',
+      color:"rgba(0,0,0,0.3)",
+      fontFamily: "Inter, sans-serif",
+
+    }
+  },
 }));
 
-export default function Trolly() {
+function Trolly(props) {
   const {
     root,
     Sub_total,
@@ -82,93 +130,139 @@ export default function Trolly() {
     checkoutbtn,
     rowfooter,
     Sub_discont,
+    row,
+    titleMenu,
+    others,
+    centered,
   } = useStyles();
-  const [product, setproduct] = React.useState([...menudummy]);
+
+  React.useEffect(() => {}, []);
 
   const onDecrement = (item) => {
+    const product = [...props.trollist?.trollyItems?.product];
     const index = product.findIndex((x) => x.id === item.id);
     const newProduct = [...product];
 
-    if (newProduct[index].id) {
-      newProduct[index].qty =
-        newProduct[index].qty > 0 && newProduct[index].qty - 1;
-    }
-    setproduct(newProduct);
+    newProduct[index].qty =
+      newProduct[index].qty > 0 && newProduct[index].qty - 1;
+    console.log(newProduct);
+    props.increamentdecreamentTrolly(newProduct, "min");
   };
   const onIncrement = (item) => {
+    const product = [...props.trollist?.trollyItems?.product];
     const index = product.findIndex((x) => x.id === item.id);
     const newProduct = [...product];
 
-    if (newProduct[index].id) {
-      newProduct[index].qty =
-        newProduct[index].qty > 0 && newProduct[index].qty + 1;
-    }
-    setproduct(newProduct);
+    newProduct[index].qty =
+      newProduct[index].qty > 0 && newProduct[index].qty + 1;
+    console.log(newProduct[index], index);
+
+    props.increamentdecreamentTrolly(newProduct, "plus");
   };
   const ondetail = (item) => {};
 
   const onCheckout = () => {
-    console.log("====================================");
-    console.log("werwerwerw");
-    console.log("====================================");
+    if (props.trollist?.trollyItems?.customer === undefined) {
+      //add data customer
+    } else {
+      //go to checkout
+    }
   };
 
+  console.log(
+    props.trollist?.trollyItems?.product,
+    "props.trollist?.trollyItems?.product"
+  );
   return (
     <div className={root}>
       <div className={cart}>
-        <h1>Pesanan kamu</h1>
-
-        <div
-          style={{
-            maxHeight: "50vh",
-            overflowY: "auto",
-            scrollbarWidth: "thin",
-          }}
-        >
-          {product.map((item, index) => (
-            <CartItem
-              key={index}
-              {...item}
-              decrement={() => onDecrement(item)}
-              increment={() => onIncrement(item)}
-              ondetail={() => ondetail(item)}
-            />
-          ))}
-        </div>
-
-        <div className={submitbutton_section}>
-          <div className={rowfooter}>
-            <Typography className={Sub_total}>Sub Total</Typography>
-            <Typography className={Sub_total_value}>
-              Rp{Func.idrCurrency(2000000)}
-            </Typography>
-          </div>
-          <div className={rowfooter}>
-            <Typography className={Sub_total}>Diskon</Typography>
-            <Typography className={Sub_discont}>
-              Rp{Func.idrCurrency(2000000)}
-            </Typography>
-          </div>
-          <hr />
-          <div className={rowfooter}>
-            <Typography className={amount_payable}>Total harga</Typography>
-            <Typography className={amount_payable_value}>
-              Rp{Func.idrCurrency(200000)}
-            </Typography>
-          </div>
+        <div className={row}>
+          <Typography className={titleMenu} variant="h2" component="h1">
+            Pesanan
+          </Typography>
           <Button
-            type="submit"
-            disabled={false}
-            variant="contained"
-            color="secondary"
             disableElevation
-            onClick={onCheckout}
-            className={checkoutbtn}
+            className={others}
+            color="secondary"
+            startIcon={<Add />}
+            component={Link}
+            to={"/foods"}
           >
-            Checkout
+            Tambah makanan
           </Button>
         </div>
+
+        {props.trollist?.trollyItems?.product === undefined ? (
+          <div className={`${centered}`}>
+            <h3>Kamu belum memilih makanan</h3>
+          </div>
+        ) : (
+          <>
+            <div
+              style={{
+                maxHeight: "50vh",
+                overflowY: "auto",
+                scrollbarWidth: "thin",
+              }}
+            >
+              {[...props.trollist?.trollyItems?.product].map((item, index) => (
+                <CartItem
+                  key={index}
+                  {...item}
+                  decrement={() => onDecrement(item)}
+                  increment={() => onIncrement(item)}
+                  ondetail={() => ondetail(item)}
+                />
+              ))}
+            </div>
+
+            <div className={submitbutton_section}>
+              <div className={rowfooter}>
+                <Typography className={Sub_total}>Sub Total</Typography>
+                <Typography className={Sub_total_value}>
+                  Rp{Func.idrCurrency(2000000)}
+                </Typography>
+              </div>
+              <div className={rowfooter}>
+                <Typography className={Sub_total}>Diskon</Typography>
+                <Typography className={Sub_discont}>
+                  Rp{Func.idrCurrency(2000000)}
+                </Typography>
+              </div>
+              <hr />
+              <div className={rowfooter}>
+                <Typography className={amount_payable}>Total harga</Typography>
+                <Typography className={amount_payable_value}>
+                  Rp{Func.idrCurrency(200000)}
+                </Typography>
+              </div>
+              <Button
+                type="submit"
+                disabled={false}
+                variant="contained"
+                color="secondary"
+                disableElevation
+                onClick={onCheckout}
+                className={checkoutbtn}
+              >
+                Checkout
+              </Button>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
 }
+
+const mapStateToProps = (state) => ({
+  trollist: state.trollyReducers,
+});
+
+const mapDispatchToProps = {
+  getListTrolly,
+  addEditDelTrolly,
+  increamentdecreamentTrolly,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Trolly);

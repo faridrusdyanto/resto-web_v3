@@ -35,8 +35,6 @@ import {
   getAllMenuAndCategory,
   getCategoryAndMenu,
   getMenuById,
-  onOrderMenu,
-  menuInTrolly,
 } from "../../services/actions/menu.actions";
 
 let values = null;
@@ -675,8 +673,6 @@ const mapDispatchToProps = {
   getAllMenuAndCategory,
   getCategoryAndMenu,
   getMenuById,
-  onOrderMenu,
-  menuInTrolly,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Checkout);

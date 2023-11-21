@@ -32,11 +32,11 @@ const getCategoryAndMenu = () => (dispatch) => {
     type: _.GET_CATEGORY_AND_MENU_LOAD,
     loading: true,
   });
-        dispatch({
-        type: _.GET_CATEGORY_AND_MENU_SUCCESS,
-        loading: false,
-        payload: menudummy,
-      });
+  dispatch({
+    type: _.GET_CATEGORY_AND_MENU_SUCCESS,
+    loading: false,
+    payload: menudummy,
+  });
   // ApiGet("category-and-product")
   //   .then((res) => {
   //     dispatch({
@@ -93,24 +93,4 @@ const onOrderMenu = (data) => (dispatch) => {
     });
 };
 
-const menuInTrolly = (data) => (dispatch) => {
-  dispatch({
-    type: _.ADD_MENU_TROLLY || _.EDIT_MENU_TROLLY || _.REMOVE_MENU_TROLLY,
-    loading: true,
-  });
-  setTimeout(() => {
-    dispatch({
-      type: _.ADD_MENU_TROLLY || _.EDIT_MENU_TROLLY || _.REMOVE_MENU_TROLLY,
-      loading: false,
-      payload: data,
-    });
-  }, 2000);
-};
-
-export {
-  getAllMenuAndCategory,
-  getCategoryAndMenu,
-  getMenuById,
-  onOrderMenu,
-  menuInTrolly,
-};
+export { getAllMenuAndCategory, getCategoryAndMenu, getMenuById, onOrderMenu };
