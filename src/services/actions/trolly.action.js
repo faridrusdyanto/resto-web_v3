@@ -36,11 +36,19 @@ const addEditDelTrolly = (product, type) => (dispatch) => {
   }, 2000);
 };
 
-const increamentdecreamentTrolly = (data, type) => async (dispatch) => {
+const increamentdecreamentTrolly = (product, isPlus) => async (dispatch) => {
+  const datas = {
+    product: [...product],
+    customer: {
+      name: "",
+      table: "",
+      numberofCustomer: 5,
+    },
+  };
   return await dispatch({
-    type: type === "plus" ? _.INCREAMENT : _.DECREAMENT,
+    type: isPlus ? _.INCREAMENT : _.DECREAMENT,
     loading: false,
-    payload: data,
+    payload: datas,
   });
 };
 

@@ -101,7 +101,6 @@ function Menu(props) {
 
   const inputEl = React.useRef("");
   const [menus, setmenus] = useState([]);
-  const [tabs, settabs] = useState([]);
   const [tabSelect, setTabSelect] = useState(1);
   const [width, setwidth] = useState(window.innerWidth);
 
@@ -119,7 +118,6 @@ function Menu(props) {
           x.category?.toLowerCase() === findCategory[tabSelect]?.toLowerCase()
       );
       setmenus(fic);
-      // settabs(findCategory);
     }
   }, [props]);
   useEffect(() => {

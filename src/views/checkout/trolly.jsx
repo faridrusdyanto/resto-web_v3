@@ -106,15 +106,14 @@ const useStyles = makeStyles((theme) => ({
   centered: {
     alignItems: "center",
     justifyContent: "center",
-    display:'flex',
-    height:'80%',
-    marginTop:'20%',
-    "& h3":{
-      textAlign:'center',
-      color:"rgba(0,0,0,0.3)",
+    display: "flex",
+    height: "80%",
+    marginTop: "20%",
+    "& h3": {
+      textAlign: "center",
+      color: "rgba(0,0,0,0.3)",
       fontFamily: "Inter, sans-serif",
-
-    }
+    },
   },
 }));
 
@@ -138,36 +137,46 @@ function Trolly(props) {
 
   React.useEffect(() => {}, []);
 
-  const onDecrement = (item) => {
-    const product = [...props.trollist?.trollyItems?.product];
-    const index = product.findIndex((x) => x.id === item.id);
-    const newProduct = [...product];
-
-    newProduct[index].qty =
-      newProduct[index].qty > 0 && newProduct[index].qty - 1;
-    console.log(newProduct);
-    props.increamentdecreamentTrolly(newProduct, "min");
-  };
   const onIncrement = (item) => {
-    const product = [...props.trollist?.trollyItems?.product];
-    const index = product.findIndex((x) => x.id === item.id);
-    const newProduct = [...product];
+    const { trollyItems } = props.trolly;
+    let dataSelect = [];
 
-    newProduct[index].qty =
-      newProduct[index].qty > 0 && newProduct[index].qty + 1;
-    console.log(newProduct[index], index);
+    const index = trollyItems?.product?.findIndex((x) => x.id === item.id);
+    if (index !== -1) {
+      trollyItems.product[index].qty += 1;
+      dataSelect = trollyItems.product;
+    }
+    props.increamentdecreamentTrolly(dataSelect, true);
+  };
 
-    props.increamentdecreamentTrolly(newProduct, "plus");
+  const onDecrement = (item) => {
+    const { trollyItems } = props.trolly;
+    let dataSelect = [];
+
+    const index = trollyItems?.product?.findIndex((x) => x.id === item.id);
+    if (index !== -1) {
+      if (trollyItems.product[index].qty > 1) {
+        trollyItems.product[index].qty -= 1;
+        dataSelect = trollyItems.product;
+      } else {
+        // Remove the item from the array if quantity is zero or negative
+        trollyItems.product.splice(index, 1);
+        dataSelect = trollyItems.product;
+      }
+    }
+    props.increamentdecreamentTrolly(dataSelect, false);
   };
   const ondetail = (item) => {};
 
   const onCheckout = () => {
-    if (props.trollist?.trollyItems?.customer === undefined) {
+    if (props.trolly?.trollyItems?.customer === undefined) {
       //add data customer
     } else {
       //go to checkout
     }
   };
+
+  console.log(props.trolly?.trollyItems);
 
   return (
     <div className={root}>
@@ -188,7 +197,7 @@ function Trolly(props) {
           </Button>
         </div>
 
-        {props.trollist?.trollyItems?.product === undefined ? (
+        {props.trolly?.trollyItems?.product === undefined ? (
           <div className={`${centered}`}>
             <h3>Kamu belum memilih makanan</h3>
           </div>
@@ -201,7 +210,7 @@ function Trolly(props) {
                 scrollbarWidth: "thin",
               }}
             >
-              {[...props.trollist?.trollyItems?.product].map((item, index) => (
+              {[...props.trolly?.trollyItems?.product].map((item, index) => (
                 <CartItem
                   key={index}
                   {...item}
@@ -252,7 +261,7 @@ function Trolly(props) {
 }
 
 const mapStateToProps = (state) => ({
-  trollist: state.trollyReducers,
+  trolly: state.trollyReducers,
 });
 
 const mapDispatchToProps = {
