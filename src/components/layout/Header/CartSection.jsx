@@ -64,7 +64,6 @@ const CartSection = ({ introllength }) => {
 
     setOpen(false);
   };
-  console.log(introllength, "introllength");
   return (
     <Box component="span" className={classes.box}>
       <Snackbars

@@ -169,10 +169,6 @@ function Trolly(props) {
     }
   };
 
-  console.log(
-    props.trollist?.trollyItems?.product,
-    "props.trollist?.trollyItems?.product"
-  );
   return (
     <div className={root}>
       <div className={cart}>

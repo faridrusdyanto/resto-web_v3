@@ -245,7 +245,6 @@ function Checkout() {
   const memoizedResult = React.useMemo(() => {
     if (!cookie) {
       dispatch({ type: "SIGN_OUT" });
-      console.log("here");
     }
   }, [cookie]);
 

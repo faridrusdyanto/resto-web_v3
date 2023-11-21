@@ -96,9 +96,7 @@ const useStyles = makeStyles({
 
 export default function Navbar() {
   const routes = useLocation();
-  console.log(routes.pathname, "adadaad");
   const { trollyItems } = useSelector((state) => state.trollyReducers);
-  console.log(trollyItems?.product?.length, "trollyItems");
   const location = useLocation();
 
   const { header, logo, menuButton, toolbar, logButtons } = useStyles(location);
